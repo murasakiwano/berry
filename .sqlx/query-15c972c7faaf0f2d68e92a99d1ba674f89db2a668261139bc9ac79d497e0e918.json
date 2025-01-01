@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "\nUPDATE accounts\nSET balance_cents = ?\nWHERE id = ?\nRETURNING *\n",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "name",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "balance_cents",
+        "ordinal": 2,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "15c972c7faaf0f2d68e92a99d1ba674f89db2a668261139bc9ac79d497e0e918"
+}

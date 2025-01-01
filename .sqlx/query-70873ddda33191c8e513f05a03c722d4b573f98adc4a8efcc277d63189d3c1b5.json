@@ -1,0 +1,56 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT * FROM \"postings\"",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "title",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "amount_cents",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "source_account_id",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "destination_account_id",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "category",
+        "ordinal": 5,
+        "type_info": "Text"
+      },
+      {
+        "name": "posting_date",
+        "ordinal": 6,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "70873ddda33191c8e513f05a03c722d4b573f98adc4a8efcc277d63189d3c1b5"
+}
