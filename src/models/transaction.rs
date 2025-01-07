@@ -1,12 +1,18 @@
-use chrono::{DateTime, Utc};
+pub mod errors;
+
+use axum::Form;
+use chrono::{DateTime, NaiveDateTime, Utc};
 use derive_more::derive::Display;
-use serde::Serialize;
-use thiserror::Error;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+
+use crate::utils::NonemptyStringVisitor;
+
+pub use errors::*;
 
 /// A uniquely identifiable monetary transaction between two [Account]s.
 /// All amounts are represented as cents.
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct Transaction {
     id: Uuid,
     title: TransactionTitle,
@@ -71,10 +77,6 @@ impl Transaction {
     }
 }
 
-#[derive(Clone, Debug, Error)]
-#[error("Transaction should have a nonempty title")]
-pub struct TransactionTitleEmptyError;
-
 /// A valid transaction title
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Display, Serialize)]
 pub struct TransactionTitle(String);
@@ -88,6 +90,22 @@ impl TransactionTitle {
             Ok(Self(trimmed.to_string()))
         }
     }
+
+    pub fn into_url_encoded(self) -> String {
+        Form(self).to_string()
+    }
+}
+
+impl<'de> Deserialize<'de> for TransactionTitle {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let raw = deserializer.deserialize_str(NonemptyStringVisitor)?;
+
+        TransactionTitle::new(&raw)
+            .map_err(|_| serde::de::Error::custom("transaction title must be a nonempty string"))
+    }
 }
 
 /// The fields required to create a [Transaction]
@@ -98,7 +116,7 @@ pub struct CreateTransactionRequest {
     source_account_id: Uuid,
     destination_account_id: Uuid,
     category: Option<String>,
-    posting_date: DateTime<Utc>,
+    posting_date: Option<NaiveDateTime>,
 }
 
 impl CreateTransactionRequest {
@@ -111,10 +129,8 @@ impl CreateTransactionRequest {
         source_account_id: Uuid,
         destination_account_id: Uuid,
         category: Option<String>,
-        posting_date: Option<DateTime<Utc>>,
+        posting_date: Option<NaiveDateTime>,
     ) -> Self {
-        let posting_date = posting_date.unwrap_or_else(Utc::now);
-
         Self {
             title,
             amount_cents,
@@ -145,49 +161,55 @@ impl CreateTransactionRequest {
         &self.category
     }
 
-    pub fn posting_date(&self) -> DateTime<Utc> {
+    pub fn posting_date(&self) -> Option<NaiveDateTime> {
         self.posting_date
     }
 }
 
-/// Specifies errors that may arise from interacting with [Transaction]s
-#[derive(Debug, Error)]
-pub enum TransactionError {
-    #[error("Source account with id {id} was not found")]
-    SourceAccountNotFound { id: Uuid },
-    #[error("Destination account with id {id} was not found")]
-    DestinationAccountNotFound { id: Uuid },
-    #[error("Transaction with id {id} was not found")]
-    NotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
+#[cfg(test)]
+mod tests {
+    use chrono::Utc;
+    use uuid::Uuid;
 
-/// Specifies errors that may arise from creating a [Transaction]
-#[derive(Debug, Error)]
-pub enum CreateTransactionError {
-    #[error("Source account with id {id} was not found")]
-    SourceAccountNotFound { id: Uuid },
-    #[error("Destination account with id {id} was not found")]
-    DestinationAccountNotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
+    use crate::models::transaction::TransactionTitle;
 
-/// Specifies errors that may arise from deleting a [Transaction]
-#[derive(Debug, Error)]
-pub enum DeleteTransactionError {
-    #[error("Transaction with id {id} was not found")]
-    TransactionNotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
+    use super::Transaction;
 
-/// Specifies errors that may arise from reading a [Transaction]
-#[derive(Debug, Error)]
-pub enum GetTransactionError {
-    #[error("Transaction with id {id} was not found")]
-    TransactionNotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
+    #[test]
+    fn serde_valid_json() {
+        let tx = Transaction::new(
+            Uuid::new_v4(),
+            TransactionTitle::new("test").unwrap(),
+            42,
+            Uuid::new_v4(),
+            Uuid::new_v4(),
+            None,
+            Utc::now(),
+        );
+
+        let ser = serde_json::to_string(&tx);
+        assert!(ser.is_ok());
+
+        let raw = ser.unwrap();
+        let result: Result<Transaction, serde_json::Error> = serde_json::from_str(&raw);
+
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn deserialize_json() {
+        let raw = "{\"id\":\"b309f1bc-c1b6-4dd4-8404-c8c8627025a9\",\"title\":\"test\",\"amount_cents\":42,\"source_account_id\":\"ef342846-ecea-43e7-a69e-fea1686a2f7c\",\"destination_account_id\":\"0f08a046-0338-40b1-97c6-5feb925b6f84\",\"category\":null,\"posting_date\":\"2025-01-06T14:56:00.760515Z\"}";
+
+        let result: Result<Transaction, serde_json::Error> = serde_json::from_str(raw);
+
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn deserialize_invalid_json_no_title() {
+        let raw = "{\"id\":\"b309f1bc-c1b6-4dd4-8404-c8c8627025a9\",\"title\":\"\",\"amount_cents\":42,\"source_account_id\":\"ef342846-ecea-43e7-a69e-fea1686a2f7c\",\"destination_account_id\":\"0f08a046-0338-40b1-97c6-5feb925b6f84\",\"category\":null,\"posting_date\":\"2025-01-06T14:56:00.760515Z\"}";
+        let result: Result<Transaction, serde_json::Error> = serde_json::from_str(raw);
+
+        assert!(result.is_err());
+    }
 }

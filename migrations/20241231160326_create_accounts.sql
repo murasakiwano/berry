@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS accounts (
-  id TEXT PRIMARY KEY NOT NULL, -- uuid
-  name TEXT UNIQUE NOT NULL,
-  balance_cents BIGINT NOT NULL DEFAULT 0
+  id uuid PRIMARY KEY, -- uuid
+  name text UNIQUE NOT NULL,
+  balance_cents bigint NOT NULL DEFAULT 0
 );

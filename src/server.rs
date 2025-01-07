@@ -7,24 +7,26 @@ use axum::{
 };
 
 use crate::{
-    config::Settings,
+    configuration::Settings,
     handlers::{
-        create_account, create_transaction, delete_account, get_account, get_transaction,
-        list_accounts, list_transactions, rename_account, update_account_balance,
+        create_account, create_transaction, delete_account, delete_transaction, get_account,
+        get_transaction, list_accounts, list_transactions, rename_account,
     },
-    sqlite::Sqlite,
+    repository::BerryRepo,
+    telemetry,
 };
 
 /// Global state shared by all request handlers
 #[derive(Debug, Clone)]
 pub struct AppState {
-    pub pool: Arc<Sqlite>,
+    pub pool: Arc<BerryRepo>,
 }
 
 /// The app's HTTP server
 pub struct Server {
     router: axum::Router,
     listener: tokio::net::TcpListener,
+    port: u16,
 }
 
 impl Server {
@@ -37,7 +39,7 @@ impl Server {
             },
         );
 
-        let pool = Sqlite::new(&config.database_url).await?;
+        let pool = BerryRepo::new(&config.database).await?;
 
         let state = AppState {
             pool: Arc::new(pool),
@@ -54,17 +56,30 @@ impl Server {
         ))
         .await
         .with_context(|| format!("failed to listen on {}", config.application.port))?;
+        let port = listener
+            .local_addr()
+            .with_context(|| "failed to get listener's local_addr")?
+            .port();
+        tracing::info!(port = ?port, "listening on host");
 
-        Ok(Self { router, listener })
+        Ok(Self {
+            router,
+            listener,
+            port,
+        })
     }
 
     /// Runs the HTTP server.
     pub async fn run(self) -> anyhow::Result<()> {
-        tracing::debug!("listening on {}", self.listener.local_addr().unwrap());
+        tracing::info!("listening on {}", self.listener.local_addr().unwrap());
         axum::serve(self.listener, self.router)
             .await
             .context("received error from running server")?;
         Ok(())
+    }
+
+    pub fn port(&self) -> u16 {
+        self.port
     }
 }
 
@@ -75,8 +90,8 @@ fn api_routes() -> Router<AppState> {
         .route("/accounts/{id}", get(get_account))
         .route("/accounts/{id}", delete(delete_account))
         .route("/accounts/{id}/name", patch(rename_account))
-        .route("/accounts/{id}/balance", patch(update_account_balance))
         .route("/transactions", post(create_transaction))
         .route("/transactions", get(list_transactions))
         .route("/transactions/{id}", get(get_transaction))
+        .route("/transactions/{id}", delete(delete_transaction))
 }

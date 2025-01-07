@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT * FROM \"postings\"",
+  "query": "SELECT * FROM postings WHERE id = $1",
   "describe": {
     "columns": [
       {
@@ -40,7 +40,9 @@
       }
     ],
     "parameters": {
-      "Left": []
+      "Left": [
+        "Uuid"
+      ]
     },
     "nullable": [
       false,
@@ -52,5 +54,5 @@
       false
     ]
   },
-  "hash": "70873ddda33191c8e513f05a03c722d4b573f98adc4a8efcc277d63189d3c1b5"
+  "hash": "64059f3811336ceede3fdc1e1afd8684389aaa5e713c01f941322935dcc10377"
 }

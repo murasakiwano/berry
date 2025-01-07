@@ -1,12 +1,18 @@
+pub mod errors;
+
+use axum::Form;
 use derive_more::derive::Display;
-use serde::Serialize;
-use thiserror::Error;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+
+use crate::utils::NonemptyStringVisitor;
+
+pub use errors::*;
 
 /// An account here is akin to an account in the double entry bookkeeping model.
 /// It may represent your bank account, an "expenses" account, and so on. Its
 /// balance is represented in cents.
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct Account {
     id: Uuid,
     name: AccountName,
@@ -39,10 +45,6 @@ impl Account {
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Display, Serialize)]
 pub struct AccountName(String);
 
-#[derive(Clone, Debug, Error)]
-#[error("Account name must not be empty")]
-pub struct AccountNameEmptyError;
-
 impl AccountName {
     pub fn new(raw: &str) -> Result<Self, AccountNameEmptyError> {
         let trimmed = raw.trim();
@@ -51,6 +53,22 @@ impl AccountName {
         } else {
             Ok(Self(raw.to_string()))
         }
+    }
+
+    pub fn into_url_encoding(self) -> String {
+        Form(self).to_string()
+    }
+}
+
+impl<'de> Deserialize<'de> for AccountName {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let raw = deserializer.deserialize_str(NonemptyStringVisitor)?;
+
+        AccountName::new(&raw)
+            .map_err(|_| serde::de::Error::custom("account name must be a nonempty string"))
     }
 }
 
@@ -70,53 +88,4 @@ impl CreateAccountRequest {
     pub fn name(&self) -> &AccountName {
         &self.name
     }
-}
-
-/// Specifies errors that may arise from interacting with [Account]s
-#[derive(Debug, Error)]
-pub enum AccountError {
-    #[error("Account name {name} is already taken")]
-    Duplicate { name: AccountName },
-    #[error("Account with id {id} not found")]
-    NotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
-
-/// Specifies errors that may arise from creating an [Account]
-#[derive(Debug, Error)]
-pub enum CreateAccountError {
-    #[error("Account name {name} is already taken")]
-    Duplicate { name: AccountName },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
-
-/// Specifies errors that may arise from getting an [Account]
-#[derive(Debug, Error)]
-pub enum GetAccountError {
-    #[error("Account with id {id} not found")]
-    NotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
-
-/// Specifies errors that may arise when updating an [Account]
-#[derive(Debug, Error)]
-pub enum UpdateAccountError {
-    #[error("Account with id {id} not found")]
-    NotFound { id: Uuid },
-    #[error("Account with name {name} already exists")]
-    Duplicate { name: String },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
-}
-
-/// Specifies errors that may arise when updating an [Account]
-#[derive(Debug, Error)]
-pub enum DeleteAccountError {
-    #[error("Account with id {id} not found")]
-    NotFound { id: Uuid },
-    #[error(transparent)]
-    Unknown(#[from] anyhow::Error),
 }

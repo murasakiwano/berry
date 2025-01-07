@@ -1,7 +1,7 @@
-pub mod config;
+pub mod configuration;
 pub mod handlers;
-pub mod http;
 pub mod models;
-pub mod sqlite;
+pub mod repository;
+pub mod server;
 pub mod telemetry;
 pub mod utils;

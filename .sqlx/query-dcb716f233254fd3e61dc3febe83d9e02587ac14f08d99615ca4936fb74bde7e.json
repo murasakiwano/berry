@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT * FROM accounts",
+  "query": "\nUPDATE accounts\nSET balance_cents = $1\nWHERE id = $2\nRETURNING *\n",
   "describe": {
     "columns": [
       {
@@ -20,7 +20,10 @@
       }
     ],
     "parameters": {
-      "Left": []
+      "Left": [
+        "Int8",
+        "Uuid"
+      ]
     },
     "nullable": [
       false,
@@ -28,5 +31,5 @@
       false
     ]
   },
-  "hash": "714d10cb76076a8c10d147a14bfda609e7d809186b602406b671d4dd79a0ca8e"
+  "hash": "dcb716f233254fd3e61dc3febe83d9e02587ac14f08d99615ca4936fb74bde7e"
 }

@@ -4,9 +4,6 @@ use tracing_bunyan_formatter::{BunyanFormattingLayer, JsonStorageLayer};
 use tracing_log::LogTracer;
 use tracing_subscriber::{fmt::MakeWriter, layer::SubscriberExt, EnvFilter, Registry};
 
-// NOTE: this code is from the book "Zero to Production In Rust".
-// Check it out at https://www.zero2prod.com/
-
 /// Compose multiple layers into a `tracing`'s subscriber.
 ///
 /// # Implementation Notes
@@ -23,7 +20,8 @@ where
 {
     let env_filter =
         EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new(env_filter));
-    let formatting_layer = BunyanFormattingLayer::new(name, sink);
+    let _formatting_layer = BunyanFormattingLayer::new(name, sink);
+    let formatting_layer = tracing_subscriber::fmt::layer();
     Registry::default()
         .with(env_filter)
         .with(JsonStorageLayer)

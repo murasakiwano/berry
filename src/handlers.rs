@@ -4,22 +4,25 @@ use anyhow::Context;
 use axum::{
     extract::{Path, State},
     http::StatusCode,
-    Json,
+    Form, Json,
 };
-use chrono::{DateTime, Utc};
+use chrono::NaiveDateTime;
 use serde::Deserialize;
 use thiserror::Error;
 use uuid::Uuid;
 
 use crate::{
-    http::AppState,
     models::{
-        account::{Account, AccountName, CreateAccountError, GetAccountError, UpdateAccountError},
+        account::{
+            Account, AccountName, CreateAccountError, DeleteAccountError, GetAccountError,
+            ListAccountsError, UpdateAccountError,
+        },
         transaction::{
-            CreateTransactionError, CreateTransactionRequest, GetTransactionError, Transaction,
-            TransactionTitle,
+            CreateTransactionError, CreateTransactionRequest, DeleteTransactionError,
+            GetTransactionError, Transaction, TransactionTitle,
         },
     },
+    server::AppState,
 };
 
 #[derive(Deserialize, Debug)]
@@ -29,7 +32,7 @@ pub struct CreateAccountRequest {
 
 pub async fn create_account(
     State(state): State<AppState>,
-    Json(body): Json<CreateAccountRequest>,
+    Form(body): Form<CreateAccountRequest>,
 ) -> Result<(StatusCode, Json<Account>), (StatusCode, String)> {
     let account_name = AccountName::new(&body.name).map_err(|e| {
         tracing::error!(error = ?e);
@@ -64,10 +67,12 @@ pub async fn create_account(
 pub async fn list_accounts(
     State(state): State<AppState>,
 ) -> Result<Json<Vec<Account>>, (StatusCode, &'static str)> {
-    let accounts = state.pool.list_accounts().await.map_err(|err| {
-        tracing::error!("{:?}\n{}", err, err.backtrace());
+    let accounts = state.pool.list_accounts().await.map_err(|err| match err {
+        ListAccountsError::Unknown(cause) => {
+            tracing::error!("{:?}\n{}", cause, cause.backtrace());
 
-        (StatusCode::INTERNAL_SERVER_ERROR, "Internal server error")
+            (StatusCode::INTERNAL_SERVER_ERROR, "Internal server error")
+        }
     })?;
 
     Ok(Json(accounts))
@@ -101,10 +106,19 @@ pub async fn get_account(
 pub async fn delete_account(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
-) -> anyhow::Result<StatusCode, (StatusCode, &'static str)> {
-    state.pool.delete_account(id).await.map_err(|e| {
-        tracing::error!("{:?}", e);
-        (StatusCode::INTERNAL_SERVER_ERROR, "Internal server error")
+) -> anyhow::Result<StatusCode, (StatusCode, String)> {
+    state.pool.delete_account(id).await.map_err(|e| match e {
+        DeleteAccountError::NotFound { id } => (
+            StatusCode::UNPROCESSABLE_ENTITY,
+            format!("Account with id {} does not exist.", id),
+        ),
+        DeleteAccountError::Unknown(e) => {
+            tracing::error!("{:?}", e);
+            (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Internal server error".to_string(),
+            )
+        }
     })?;
 
     Ok(StatusCode::NO_CONTENT)
@@ -118,56 +132,27 @@ pub struct RenameAccountRequestBody {
 pub async fn rename_account(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
-    Json(body): Json<RenameAccountRequestBody>,
+    Form(body): Form<RenameAccountRequestBody>,
 ) -> Result<StatusCode, (StatusCode, String)> {
+    let account_name = AccountName::new(&body.name).map_err(|_| {
+        (
+            StatusCode::BAD_REQUEST,
+            "account name must not be empty".to_string(),
+        )
+    })?;
+
     state
         .pool
-        .rename_account(id, &body.name)
+        .rename_account(id, account_name)
         .await
         .map_err(|e| match e {
             UpdateAccountError::NotFound { id } => (
-                StatusCode::NOT_FOUND,
+                StatusCode::UNPROCESSABLE_ENTITY,
                 format!("Account with id {} does not exist", id),
             ),
             UpdateAccountError::Duplicate { name } => (
                 StatusCode::UNPROCESSABLE_ENTITY,
                 format!("Account with name {} already exists", name),
-            ),
-            UpdateAccountError::Unknown(cause) => {
-                tracing::error!("{:?}\n{}", cause, cause.backtrace());
-
-                (
-                    StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
-                )
-            }
-        })?;
-
-    Ok(StatusCode::OK)
-}
-
-#[derive(Deserialize)]
-pub struct UpdateAccountBalanceRequestBody {
-    new_balance: i64,
-}
-
-pub async fn update_account_balance(
-    State(state): State<AppState>,
-    Path(id): Path<Uuid>,
-    Json(body): Json<UpdateAccountBalanceRequestBody>,
-) -> Result<StatusCode, (StatusCode, String)> {
-    state
-        .pool
-        .update_account_balance(id, body.new_balance)
-        .await
-        .map_err(|e| match e {
-            UpdateAccountError::NotFound { id } => (
-                StatusCode::NOT_FOUND,
-                format!("Account with id {} does not exist", id),
-            ),
-            UpdateAccountError::Duplicate { name } => (
-                StatusCode::UNPROCESSABLE_ENTITY,
-                format!("Account name {} is already taken", name),
             ),
             UpdateAccountError::Unknown(cause) => {
                 tracing::error!("{:?}\n{}", cause, cause.backtrace());
@@ -189,7 +174,7 @@ pub struct CreateTransactionRequestBody {
     source_account_id: String,
     destination_account_id: String,
     category: Option<String>,
-    posting_date: Option<DateTime<Utc>>,
+    posting_date: Option<NaiveDateTime>,
 }
 
 impl CreateTransactionRequestBody {
@@ -233,7 +218,7 @@ pub struct CreateTransactionRequestBodyParseError {
 
 pub async fn create_transaction(
     State(state): State<AppState>,
-    Json(body): Json<CreateTransactionRequestBody>,
+    Form(body): Form<CreateTransactionRequestBody>,
 ) -> Result<(StatusCode, Json<Transaction>), (StatusCode, String)> {
     let req = body
         .into_domain_model()
@@ -304,4 +289,32 @@ pub async fn get_transaction(
         })?;
 
     Ok(Json(transaction))
+}
+
+pub async fn delete_transaction(
+    State(state): State<AppState>,
+    Path(id): Path<Uuid>,
+) -> anyhow::Result<StatusCode, (StatusCode, String)> {
+    state
+        .pool
+        .delete_transaction(id)
+        .await
+        .map_err(|e| match e {
+            DeleteTransactionError::TransactionNotFound { id } => {
+                tracing::error!(txid = ?id, "tried to delete unexisting transaction");
+                (
+                    StatusCode::UNPROCESSABLE_ENTITY,
+                    format!("transaction with ID {} does not exist", id),
+                )
+            }
+            DeleteTransactionError::Unknown(e) => {
+                tracing::error!(error = ?e, "failed to delete transaction");
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    "Internal server error".to_string(),
+                )
+            }
+        })?;
+
+    Ok(StatusCode::NO_CONTENT)
 }

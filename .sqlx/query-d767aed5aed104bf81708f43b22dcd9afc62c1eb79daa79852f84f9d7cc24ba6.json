@@ -1,6 +1,6 @@
 {
   "db_name": "PostgreSQL",
-  "query": "SELECT * FROM accounts",
+  "query": "SELECT * FROM accounts WHERE id = $1",
   "describe": {
     "columns": [
       {
@@ -20,7 +20,9 @@
       }
     ],
     "parameters": {
-      "Left": []
+      "Left": [
+        "Uuid"
+      ]
     },
     "nullable": [
       false,
@@ -28,5 +30,5 @@
       false
     ]
   },
-  "hash": "714d10cb76076a8c10d147a14bfda609e7d809186b602406b671d4dd79a0ca8e"
+  "hash": "d767aed5aed104bf81708f43b22dcd9afc62c1eb79daa79852f84f9d7cc24ba6"
 }
