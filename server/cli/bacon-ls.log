@@ -1,0 +1,1479 @@
+2025-01-09T17:51:59.603017Z  INFO main 22: initializing bacon-ls v0.9.0
+2025-01-09T17:51:59.603043Z DEBUG main 23: initializing with input parameters: InitializeParams {
+    process_id: Some(
+        23739,
+    ),
+    root_path: Some(
+        "/Users/johannhomonnai/workspace/berry/cli",
+    ),
+    root_uri: Some(
+        Url {
+            scheme: "file",
+            cannot_be_a_base: false,
+            username: "",
+            password: None,
+            host: None,
+            port: None,
+            path: "/Users/johannhomonnai/workspace/berry/cli",
+            query: None,
+            fragment: None,
+        },
+    ),
+    initialization_options: Some(
+        Object {
+            "updateOnChange": Bool(false),
+            "updateOnSave": Bool(true),
+            "updateOnSaveWaitMillis": Number(1000),
+        },
+    ),
+    capabilities: ClientCapabilities {
+        workspace: Some(
+            WorkspaceClientCapabilities {
+                apply_edit: Some(
+                    true,
+                ),
+                workspace_edit: Some(
+                    WorkspaceEditClientCapabilities {
+                        document_changes: None,
+                        resource_operations: Some(
+                            [
+                                Rename,
+                                Create,
+                                Delete,
+                            ],
+                        ),
+                        failure_handling: None,
+                        normalizes_line_endings: None,
+                        change_annotation_support: None,
+                    },
+                ),
+                did_change_configuration: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                    },
+                ),
+                did_change_watched_files: Some(
+                    DidChangeWatchedFilesClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                        relative_pattern_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                symbol: Some(
+                    WorkspaceSymbolClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        symbol_kind: Some(
+                            SymbolKindCapability {
+                                value_set: Some(
+                                    [
+                                        File,
+                                        Module,
+                                        Namespace,
+                                        Package,
+                                        Class,
+                                        Method,
+                                        Property,
+                                        Field,
+                                        Constructor,
+                                        Enum,
+                                        Interface,
+                                        Function,
+                                        Variable,
+                                        Constant,
+                                        String,
+                                        Number,
+                                        Boolean,
+                                        Array,
+                                        Object,
+                                        Key,
+                                        Null,
+                                        EnumMember,
+                                        Struct,
+                                        Event,
+                                        Operator,
+                                        TypeParameter,
+                                    ],
+                                ),
+                            },
+                        ),
+                        tag_support: None,
+                        resolve_support: None,
+                    },
+                ),
+                execute_command: None,
+                workspace_folders: Some(
+                    true,
+                ),
+                configuration: Some(
+                    true,
+                ),
+                semantic_tokens: Some(
+                    SemanticTokensWorkspaceClientCapabilities {
+                        refresh_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                code_lens: None,
+                file_operations: None,
+                inline_value: None,
+                inlay_hint: Some(
+                    InlayHintWorkspaceClientCapabilities {
+                        refresh_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                diagnostic: None,
+            },
+        ),
+        text_document: Some(
+            TextDocumentClientCapabilities {
+                synchronization: Some(
+                    TextDocumentSyncClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        will_save: Some(
+                            true,
+                        ),
+                        will_save_wait_until: Some(
+                            true,
+                        ),
+                        did_save: Some(
+                            true,
+                        ),
+                    },
+                ),
+                completion: Some(
+                    CompletionClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        completion_item: Some(
+                            CompletionItemCapability {
+                                snippet_support: Some(
+                                    true,
+                                ),
+                                commit_characters_support: Some(
+                                    false,
+                                ),
+                                documentation_format: Some(
+                                    [
+                                        Markdown,
+                                        PlainText,
+                                    ],
+                                ),
+                                deprecated_support: Some(
+                                    true,
+                                ),
+                                preselect_support: Some(
+                                    false,
+                                ),
+                                tag_support: Some(
+                                    TagSupport {
+                                        value_set: [
+                                            Deprecated,
+                                        ],
+                                    },
+                                ),
+                                insert_replace_support: None,
+                                resolve_support: Some(
+                                    CompletionItemCapabilityResolveSupport {
+                                        properties: [
+                                            "additionalTextEdits",
+                                        ],
+                                    },
+                                ),
+                                insert_text_mode_support: None,
+                                label_details_support: None,
+                            },
+                        ),
+                        completion_item_kind: Some(
+                            CompletionItemKindCapability {
+                                value_set: Some(
+                                    [
+                                        Text,
+                                        Method,
+                                        Function,
+                                        Constructor,
+                                        Field,
+                                        Variable,
+                                        Class,
+                                        Interface,
+                                        Module,
+                                        Property,
+                                        Unit,
+                                        Value,
+                                        Enum,
+                                        Keyword,
+                                        Snippet,
+                                        Color,
+                                        File,
+                                        Reference,
+                                        Folder,
+                                        EnumMember,
+                                        Constant,
+                                        Struct,
+                                        Event,
+                                        Operator,
+                                        TypeParameter,
+                                    ],
+                                ),
+                            },
+                        ),
+                        context_support: Some(
+                            false,
+                        ),
+                        insert_text_mode: None,
+                        completion_list: Some(
+                            CompletionListCapability {
+                                item_defaults: Some(
+                                    [
+                                        "editRange",
+                                        "insertTextFormat",
+                                        "insertTextMode",
+                                        "data",
+                                    ],
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                hover: Some(
+                    HoverClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                        content_format: Some(
+                            [
+                                Markdown,
+                                PlainText,
+                            ],
+                        ),
+                    },
+                ),
+                signature_help: Some(
+                    SignatureHelpClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        signature_information: Some(
+                            SignatureInformationSettings {
+                                documentation_format: Some(
+                                    [
+                                        Markdown,
+                                        PlainText,
+                                    ],
+                                ),
+                                parameter_information: Some(
+                                    ParameterInformationSettings {
+                                        label_offset_support: Some(
+                                            true,
+                                        ),
+                                    },
+                                ),
+                                active_parameter_support: Some(
+                                    true,
+                                ),
+                            },
+                        ),
+                        context_support: None,
+                    },
+                ),
+                references: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                    },
+                ),
+                document_highlight: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                    },
+                ),
+                document_symbol: Some(
+                    DocumentSymbolClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        symbol_kind: Some(
+                            SymbolKindCapability {
+                                value_set: Some(
+                                    [
+                                        File,
+                                        Module,
+                                        Namespace,
+                                        Package,
+                                        Class,
+                                        Method,
+                                        Property,
+                                        Field,
+                                        Constructor,
+                                        Enum,
+                                        Interface,
+                                        Function,
+                                        Variable,
+                                        Constant,
+                                        String,
+                                        Number,
+                                        Boolean,
+                                        Array,
+                                        Object,
+                                        Key,
+                                        Null,
+                                        EnumMember,
+                                        Struct,
+                                        Event,
+                                        Operator,
+                                        TypeParameter,
+                                    ],
+                                ),
+                            },
+                        ),
+                        hierarchical_document_symbol_support: Some(
+                            true,
+                        ),
+                        tag_support: None,
+                    },
+                ),
+                formatting: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                    },
+                ),
+                range_formatting: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                    },
+                ),
+                on_type_formatting: None,
+                declaration: Some(
+                    GotoCapability {
+                        dynamic_registration: None,
+                        link_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                definition: Some(
+                    GotoCapability {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                        link_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                type_definition: Some(
+                    GotoCapability {
+                        dynamic_registration: None,
+                        link_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                implementation: Some(
+                    GotoCapability {
+                        dynamic_registration: None,
+                        link_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                code_action: Some(
+                    CodeActionClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                        code_action_literal_support: Some(
+                            CodeActionLiteralSupport {
+                                code_action_kind: CodeActionKindLiteralSupport {
+                                    value_set: [
+                                        "",
+                                        "quickfix",
+                                        "refactor",
+                                        "refactor.extract",
+                                        "refactor.inline",
+                                        "refactor.rewrite",
+                                        "source",
+                                        "source.organizeImports",
+                                    ],
+                                },
+                            },
+                        ),
+                        is_preferred_support: Some(
+                            true,
+                        ),
+                        disabled_support: None,
+                        data_support: Some(
+                            true,
+                        ),
+                        resolve_support: Some(
+                            CodeActionCapabilityResolveSupport {
+                                properties: [
+                                    "edit",
+                                ],
+                            },
+                        ),
+                        honors_change_annotations: None,
+                    },
+                ),
+                code_lens: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                    },
+                ),
+                document_link: None,
+                color_provider: None,
+                rename: Some(
+                    RenameClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                        prepare_support: Some(
+                            true,
+                        ),
+                        prepare_support_default_behavior: None,
+                        honors_change_annotations: None,
+                    },
+                ),
+                publish_diagnostics: Some(
+                    PublishDiagnosticsClientCapabilities {
+                        related_information: Some(
+                            true,
+                        ),
+                        tag_support: Some(
+                            TagSupport {
+                                value_set: [
+                                    Unnecessary,
+                                    Deprecated,
+                                ],
+                            },
+                        ),
+                        version_support: None,
+                        code_description_support: None,
+                        data_support: Some(
+                            true,
+                        ),
+                    },
+                ),
+                folding_range: Some(
+                    FoldingRangeClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        range_limit: None,
+                        line_folding_only: Some(
+                            true,
+                        ),
+                        folding_range_kind: None,
+                        folding_range: Some(
+                            FoldingRangeCapability {
+                                collapsed_text: Some(
+                                    true,
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                selection_range: None,
+                linked_editing_range: None,
+                call_hierarchy: Some(
+                    DynamicRegistrationClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                    },
+                ),
+                semantic_tokens: Some(
+                    SemanticTokensClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        requests: SemanticTokensClientCapabilitiesRequests {
+                            range: Some(
+                                false,
+                            ),
+                            full: Some(
+                                Delta {
+                                    delta: Some(
+                                        true,
+                                    ),
+                                },
+                            ),
+                        },
+                        token_types: [
+                            SemanticTokenType(
+                                "namespace",
+                            ),
+                            SemanticTokenType(
+                                "type",
+                            ),
+                            SemanticTokenType(
+                                "class",
+                            ),
+                            SemanticTokenType(
+                                "enum",
+                            ),
+                            SemanticTokenType(
+                                "interface",
+                            ),
+                            SemanticTokenType(
+                                "struct",
+                            ),
+                            SemanticTokenType(
+                                "typeParameter",
+                            ),
+                            SemanticTokenType(
+                                "parameter",
+                            ),
+                            SemanticTokenType(
+                                "variable",
+                            ),
+                            SemanticTokenType(
+                                "property",
+                            ),
+                            SemanticTokenType(
+                                "enumMember",
+                            ),
+                            SemanticTokenType(
+                                "event",
+                            ),
+                            SemanticTokenType(
+                                "function",
+                            ),
+                            SemanticTokenType(
+                                "method",
+                            ),
+                            SemanticTokenType(
+                                "macro",
+                            ),
+                            SemanticTokenType(
+                                "keyword",
+                            ),
+                            SemanticTokenType(
+                                "modifier",
+                            ),
+                            SemanticTokenType(
+                                "comment",
+                            ),
+                            SemanticTokenType(
+                                "string",
+                            ),
+                            SemanticTokenType(
+                                "number",
+                            ),
+                            SemanticTokenType(
+                                "regexp",
+                            ),
+                            SemanticTokenType(
+                                "operator",
+                            ),
+                            SemanticTokenType(
+                                "decorator",
+                            ),
+                        ],
+                        token_modifiers: [
+                            SemanticTokenModifier(
+                                "declaration",
+                            ),
+                            SemanticTokenModifier(
+                                "definition",
+                            ),
+                            SemanticTokenModifier(
+                                "readonly",
+                            ),
+                            SemanticTokenModifier(
+                                "static",
+                            ),
+                            SemanticTokenModifier(
+                                "deprecated",
+                            ),
+                            SemanticTokenModifier(
+                                "abstract",
+                            ),
+                            SemanticTokenModifier(
+                                "async",
+                            ),
+                            SemanticTokenModifier(
+                                "modification",
+                            ),
+                            SemanticTokenModifier(
+                                "documentation",
+                            ),
+                            SemanticTokenModifier(
+                                "defaultLibrary",
+                            ),
+                        ],
+                        formats: [
+                            TokenFormat(
+                                "relative",
+                            ),
+                        ],
+                        overlapping_token_support: Some(
+                            true,
+                        ),
+                        multiline_token_support: Some(
+                            false,
+                        ),
+                        server_cancel_support: Some(
+                            false,
+                        ),
+                        augments_syntax_tokens: Some(
+                            true,
+                        ),
+                    },
+                ),
+                moniker: None,
+                type_hierarchy: None,
+                inline_value: None,
+                inlay_hint: Some(
+                    InlayHintClientCapabilities {
+                        dynamic_registration: Some(
+                            true,
+                        ),
+                        resolve_support: Some(
+                            InlayHintResolveClientCapabilities {
+                                properties: [
+                                    "textEdits",
+                                    "tooltip",
+                                    "location",
+                                    "command",
+                                ],
+                            },
+                        ),
+                    },
+                ),
+                diagnostic: Some(
+                    DiagnosticClientCapabilities {
+                        dynamic_registration: Some(
+                            false,
+                        ),
+                        related_document_support: None,
+                    },
+                ),
+            },
+        ),
+        window: Some(
+            WindowClientCapabilities {
+                work_done_progress: Some(
+                    true,
+                ),
+                show_message: Some(
+                    ShowMessageRequestClientCapabilities {
+                        message_action_item: Some(
+                            MessageActionItemCapabilities {
+                                additional_properties_support: Some(
+                                    true,
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                show_document: Some(
+                    ShowDocumentClientCapabilities {
+                        support: true,
+                    },
+                ),
+            },
+        ),
+        general: Some(
+            GeneralClientCapabilities {
+                regular_expressions: None,
+                markdown: None,
+                stale_request_support: None,
+                position_encodings: Some(
+                    [
+                        PositionEncodingKind(
+                            "utf-8",
+                        ),
+                        PositionEncodingKind(
+                            "utf-16",
+                        ),
+                        PositionEncodingKind(
+                            "utf-32",
+                        ),
+                    ],
+                ),
+            },
+        ),
+        experimental: None,
+    },
+    trace: Some(
+        Off,
+    ),
+    workspace_folders: Some(
+        [
+            WorkspaceFolder {
+                uri: Url {
+                    scheme: "file",
+                    cannot_be_a_base: false,
+                    username: "",
+                    password: None,
+                    host: None,
+                    port: None,
+                    path: "/Users/johannhomonnai/workspace/berry/cli",
+                    query: None,
+                    fragment: None,
+                },
+                name: "/Users/johannhomonnai/workspace/berry/cli",
+            },
+        ],
+    ),
+    client_info: Some(
+        ClientInfo {
+            name: "Neovim",
+            version: Some(
+                "0.11.0-dev+gffaab09e99",
+            ),
+        },
+    ),
+    locale: None,
+}
+2025-01-09T17:51:59.603301Z  INFO main 34: client supports diagnostics data and diagnostics
+2025-01-09T17:51:59.603305Z DEBUG main 45: client initialization options: {
+    "updateOnChange": Bool(false),
+    "updateOnSave": Bool(true),
+    "updateOnSaveWaitMillis": Number(1000),
+}
+2025-01-09T17:51:59.603313Z DEBUG main 76: loaded state from lsp settings: State {
+    workspace_folders: Some(
+        [
+            WorkspaceFolder {
+                uri: Url {
+                    scheme: "file",
+                    cannot_be_a_base: false,
+                    username: "",
+                    password: None,
+                    host: None,
+                    port: None,
+                    path: "/Users/johannhomonnai/workspace/berry/cli",
+                    query: None,
+                    fragment: None,
+                },
+                name: "/Users/johannhomonnai/workspace/berry/cli",
+            },
+        ],
+    ),
+    locations_file: ".bacon-locations",
+    update_on_save: true,
+    update_on_save_wait_millis: 1s,
+    update_on_change: false,
+    validate_bacon_preferences: true,
+}
+2025-01-09T17:51:59.659675Z  INFO main 106: bacon-ls v0.9.0 lsp server initialized
+2025-01-09T17:51:59.661376Z DEBUG main 130: client sent didOpen request
+2025-01-09T17:51:59.661458Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:42:21 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661471Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:58:21 error returned from database: relation "postings" does not exist
+2025-01-09T17:51:59.661474Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:113:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661477Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:174:20 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661479Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:198:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661482Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:226:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661484Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:279:22 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661498Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:339:22 error returned from database: relation "accounts" does not exist
+2025-01-09T17:51:59.661501Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:425:19 error returned from database: relation "postings" does not exist
+2025-01-09T17:51:59.661503Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:467:19 error returned from database: relation "postings" does not exist
+2025-01-09T17:51:59.661524Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:502:20 error returned from database: relation "postings" does not exist
+2025-01-09T17:51:59.668115Z DEBUG main 75: skipping non existing bacon preference file /Users/johannhomonnai/Library/Application Support/org.dystroy.bacon/prefs.toml
+2025-01-09T17:51:59.668230Z DEBUG main 51: bacon config is BaconConfig {
+    jobs: Jobs {
+        bacon_ls: BaconLs {
+            analyzer: "cargo_json",
+            need_stdout: true,
+        },
+    },
+    exports: Exports {
+        cargo_json_spans: CargoJsonSpans {
+            auto: true,
+            exporter: "analyzer",
+            line_format: "{diagnostic.level}|:|{span.file_name}|:|{span.line_start}|:|{span.line_end}|:|{span.column_start}|:|{span.column_end}|:|{diagnostic.message}|:|{span.suggested_replacement}",
+            path: ".bacon-locations",
+        },
+    },
+}
+2025-01-09T17:51:59.668241Z  INFO main 59: bacon configuration /Users/johannhomonnai/Library/Application Support/org.dystroy.bacon/prefs.toml is valid
+2025-01-09T17:51:59.668244Z DEBUG main 75: skipping non existing bacon preference file 
+2025-01-09T17:52:01.068933Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:52:02.071159Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:42:21 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071189Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:58:21 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:02.071193Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:113:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071196Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:174:20 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071198Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:198:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071214Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:226:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071216Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:279:22 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071219Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:339:22 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:02.071221Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:425:19 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:02.071223Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:467:19 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:02.071244Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:502:20 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:04.463982Z DEBUG main 130: client sent didOpen request
+2025-01-09T17:52:04.464075Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:42:21 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464081Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:58:21 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:04.464085Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:113:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464088Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:174:20 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464091Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:198:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464094Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:226:19 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464107Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:279:22 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464110Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:339:22 error returned from database: relation "accounts" does not exist
+2025-01-09T17:52:04.464112Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:425:19 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:04.464114Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:467:19 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:04.464124Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/server/src/service.rs:502:20 error returned from database: relation "postings" does not exist
+2025-01-09T17:52:20.061298Z DEBUG main 135: client sent didClose request
+2025-01-09T17:52:20.061714Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:274:6 expected `;`, found `}`
+2025-01-09T17:52:20.061746Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:274:6 expected `;`, found `}`
+2025-01-09T17:52:20.061754Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:20.061761Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:20.061770Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:17:44 unused import: `OptionExt`
+2025-01-09T17:52:20.061777Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:16 unused import: `delimited`
+2025-01-09T17:52:20.061783Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:17:44 unused import: `OptionExt`
+2025-01-09T17:52:20.061791Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:16 unused import: `delimited`
+2025-01-09T17:52:20.061819Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:20.061823Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:20.061827Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:20.061830Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:20.061834Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:20.061838Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:20.061841Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:20.061869Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:21.882949Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:22.253078Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:52:23.255284Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:23.255305Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:23.255309Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:17:44 unused import: `OptionExt`
+2025-01-09T17:52:23.255312Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:16 unused import: `delimited`
+2025-01-09T17:52:23.255314Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:17:44 unused import: `OptionExt`
+2025-01-09T17:52:23.255330Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:16 unused import: `delimited`
+2025-01-09T17:52:23.255333Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:23.255335Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:23.255337Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:23.255339Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:23.255341Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:23.255343Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:23.255346Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:23.255361Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:35.306784Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:35.858210Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:52:36.859898Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:36.860074Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:36.860080Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:16 unused import: `delimited`
+2025-01-09T17:52:36.860084Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:16 unused import: `delimited`
+2025-01-09T17:52:36.860094Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:36.860097Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:36.860100Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:36.860102Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:36.860105Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:36.860107Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:36.860109Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:36.860117Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:38.674476Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:39.157250Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:39.187587Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:39.187622Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:52:40.189831Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:40.189848Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:270:35 mismatched types
+2025-01-09T17:52:40.189852Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:40.189855Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:195:9 unused variable: `source_account`
+2025-01-09T17:52:40.189866Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:40.189869Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:18 unused variable: `description`
+2025-01-09T17:52:40.189871Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:40.189873Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:40.189875Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `date`
+2025-01-09T17:52:40.189886Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:216:13 unused variable: `amount`
+2025-01-09T17:52:49.226266Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:49.546458Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:50.063884Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:50.212439Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:50.362170Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:50.512024Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:50.659935Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:50.809821Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:52.266743Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:52.426071Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:52.573553Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:52.724024Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:52.875744Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:53.154964Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:53.393911Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:53.542869Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:53.692733Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:53.857246Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:54.015260Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:54.164968Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:54.315173Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:55.698936Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:55.904674Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:56.329228Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:56.479117Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:56.629337Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:56.797321Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:57.047344Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:57.412880Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:57.559332Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:57.707856Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:58.014303Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:58.218256Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:59.678070Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:59.829839Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:52:59.980807Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:00.130413Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:00.280422Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:00.431296Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:00.590828Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:00.739949Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:04.520517Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:05.284253Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:05.531513Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:05.557074Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:05.557105Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:53:06.558604Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:53:06.558764Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:53:06.558776Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:5 unused import: `combinator::map_res`
+2025-01-09T17:53:06.558780Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:5 unused import: `combinator::map_res`
+2025-01-09T17:53:06.558799Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:53:06.558805Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:53:06.558809Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:53:06.558822Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:53:06.558825Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:53:06.558828Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:53:06.558830Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:53:06.558853Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:53:07.424336Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:07.585116Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:07.735765Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:07.885873Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:08.039148Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:08.184873Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:08.334482Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:08.482907Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:08.634660Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:08.783942Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:13.237595Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:13.384703Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:13.892033Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:53:14.793852Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:14.894273Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:53:14.894302Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:53:14.894316Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:5 unused import: `combinator::map_res`
+2025-01-09T17:53:14.894323Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:5 unused import: `combinator::map_res`
+2025-01-09T17:53:14.894356Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:53:14.894359Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:53:14.894362Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:53:14.894365Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:53:14.894368Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:53:14.894370Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:53:14.894372Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:53:14.894400Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:53:15.895816Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:16.043915Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:16.193091Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:16.990134Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:19.629867Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:19.782763Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:19.932741Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:20.080946Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:20.402070Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:20.552349Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:20.702729Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:20.852762Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:21.022149Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:21.172588Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:21.322716Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:21.471685Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:21.622359Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:21.921051Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:22.068725Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:22.218403Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:22.374182Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:22.521036Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:23.916744Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:24.074200Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:24.222601Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:24.373849Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:24.682031Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:24.835211Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:24.987382Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:25.136902Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:27.822676Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:28.136906Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:28.338489Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:28.487782Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:28.637922Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:28.844317Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:28.994097Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:29.766116Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:30.318944Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:30.470588Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:30.619116Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:30.768227Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:30.950311Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:31.148055Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:31.298237Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:31.447374Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:31.597511Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:31.748774Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:31.897415Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:32.046817Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:32.196146Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:32.345960Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:32.572675Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:32.744122Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:34.973608Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:35.184198Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:35.333197Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:35.483213Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:38.715451Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.058857Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.206342Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.355135Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.504130Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.654030Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.802795Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:39.978897Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:40.127411Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:40.276177Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:40.425950Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:40.574979Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:40.877008Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:41.377709Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:41.526470Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:41.713057Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:41.870030Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:42.168706Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:42.324618Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:42.543968Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:42.693962Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:42.844099Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.009828Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.161341Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.310545Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.461094Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.611351Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.761992Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:43.927021Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:44.216762Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:44.618595Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.063686Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.218264Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.392185Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.541025Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.691155Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.847607Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:45.998270Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:46.147849Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:46.296284Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:46.446056Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:46.595957Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:46.746898Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:48.379344Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:48.675829Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:48.825348Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:48.976402Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:49.150597Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:49.300498Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:49.450908Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:49.599846Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:49.749280Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:49.900930Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.052036Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.197605Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.349304Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.499371Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.650260Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.800722Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:50.951569Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:51.102485Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:51.254397Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:51.406030Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:51.557465Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:51.781923Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:52.280933Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:52.433745Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:52.580842Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:52.733289Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:52.884915Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:53:53.143715Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:13.137424Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:13.538320Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:13.693204Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:13.843959Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:14.305376Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:14.550956Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:14.752349Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:14.923921Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:15.069595Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:15.228221Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:15.376859Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:17.224925Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:19.082319Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:19.377294Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:19.961008Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:20.110177Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:20.875223Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:21.029789Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:21.941327Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:21.969899Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:21.969932Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:54:22.971561Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:272:27 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:54:22.971597Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nom-7.1.3/src/sequence/mod.rs:172:8 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:54:22.971602Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:272:27 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:54:22.971608Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nom-7.1.3/src/sequence/mod.rs:172:8 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:54:22.971612Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:54:22.971615Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:54:22.971618Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:5 unused imports: `combinator::map_res` and `preceded`
+2025-01-09T17:54:22.971624Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:21:5 unused imports: `combinator::map_res` and `preceded`
+2025-01-09T17:54:22.971627Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:54:22.971630Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:54:22.971633Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:54:22.971636Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:54:22.971639Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:54:22.971642Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:54:22.971646Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:54:22.971672Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:54:26.055561Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:26.408427Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:26.821434Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:54:27.544083Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:03.110513Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:03.716491Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:08.745894Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:08.951740Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:09.137087Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:09.382451Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:09.528851Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:09.678164Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:09.922444Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:10.071880Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:10.834926Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:10.861377Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:10.861404Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:57:11.862340Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:272:27 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:57:11.862395Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nom-7.1.3/src/sequence/mod.rs:172:8 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:57:11.862401Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:272:27 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:57:11.862404Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/.cargo/registry/src/index.crates.io-6f17d22bba15001f/nom-7.1.3/src/sequence/mod.rs:172:8 this function takes 3 arguments but 2 arguments were supplied
+2025-01-09T17:57:11.862408Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:57:11.862415Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:57:11.862419Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:57:11.862424Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:57:11.862427Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:57:11.862431Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:57:11.862434Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:57:11.862437Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:57:11.862440Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:57:11.862443Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:57:11.862446Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:57:11.862462Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:57:18.635300Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:18.780954Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:19.450210Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:19.601009Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:19.752773Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:19.904789Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:20.613999Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:57:21.616177Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:57:21.617543Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:57:21.617558Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:57:21.617562Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:57:21.617566Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:57:21.617570Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:57:21.617573Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:57:21.617576Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:57:21.617579Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:57:21.617583Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:57:21.617586Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:57:21.617602Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:57:27.542066Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:57:28.645598Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:57:29.646875Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:57:29.646898Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:57:29.646903Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:57:29.646909Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:57:29.646913Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:57:29.646916Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:57:29.646920Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:57:29.646923Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:57:29.646926Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:57:29.646929Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:57:29.646933Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:57:29.646943Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:57:31.225993Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:09.202459Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:09.350205Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:09.499628Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:09.648067Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:09.797468Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:09.978841Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.133409Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.283107Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.460734Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.462609Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.611530Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.761021Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:10.910011Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:11.527606Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:11.687849Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:11.837985Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:19.265592Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:19.476678Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:19.626062Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:24.307712Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:24.532006Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:24.694059Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:24.845622Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:25.575577Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:25.736454Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:25.918918Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:26.068220Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:37.207738Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:37.492575Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:38.253723Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:38.851989Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:39.000596Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:39.669383Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T17:59:40.671802Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:59:40.671832Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T17:59:40.671844Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:59:40.671854Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `combinator::map_res`, `preceded`, and `take_while1`
+2025-01-09T17:59:40.671858Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:59:40.671861Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T17:59:40.671865Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:59:40.671868Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T17:59:40.671872Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:59:40.671875Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T17:59:40.671878Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:59:40.671890Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T17:59:47.345773Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:47.495239Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:47.643628Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:47.793442Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:47.945027Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:48.095918Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:48.381108Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:48.529189Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:48.678087Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:48.828374Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:48.978390Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:49.128781Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:49.278030Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:50.048830Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:50.197338Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:50.348603Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:50.604359Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:50.753997Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:50.904782Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:51.085847Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:51.235083Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:52.598246Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:53.679738Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:53.847125Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.018258Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.169050Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.319806Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.469553Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.623795Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.768565Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T17:59:54.919649Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:09.869137Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.020680Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.168888Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.319424Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.469216Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.620769Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.771963Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:10.920842Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:11.285656Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:11.971103Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:00:11.996713Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:00:13.008403Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T18:00:13.008455Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T18:00:13.008473Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `map_res`, `preceded`, and `take_while1`
+2025-01-09T18:00:13.008478Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `map_res`, `preceded`, and `take_while1`
+2025-01-09T18:00:13.008482Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T18:00:13.008485Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T18:00:13.008489Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T18:00:13.008492Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T18:00:13.008495Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T18:00:13.008498Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T18:00:13.008502Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T18:00:13.008519Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T18:00:21.183496Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:01:08.467855Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:01:08.616263Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:01:10.051479Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:23.367830Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:23.721639Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:24.724029Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T18:17:24.724060Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: error /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:271:35 mismatched types
+2025-01-09T18:17:24.724068Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `map_res`, `preceded`, and `take_while1`
+2025-01-09T18:17:24.724074Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:41 unused imports: `map_res`, `preceded`, and `take_while1`
+2025-01-09T18:17:24.724077Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T18:17:24.724080Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T18:17:24.724084Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T18:17:24.724087Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T18:17:24.724090Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T18:17:24.724093Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T18:17:24.724097Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T18:17:24.724108Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T18:17:27.954222Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:28.274694Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:29.275939Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:23 unused imports: `delimited`, `map_res`, `preceded`, `rest`, `tag`, `take_until1`, and `take_while1`
+2025-01-09T18:17:29.276167Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:20:23 unused imports: `delimited`, `map_res`, `preceded`, `rest`, `tag`, `take_until1`, and `take_while1`
+2025-01-09T18:17:29.276181Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T18:17:29.276185Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T18:17:29.276189Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T18:17:29.276193Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T18:17:29.276196Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:196:9 unused variable: `source_account`
+2025-01-09T18:17:29.276199Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:209:18 unused variable: `description`
+2025-01-09T18:17:29.276202Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:213:13 unused variable: `date`
+2025-01-09T18:17:29.276207Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:217:13 unused variable: `amount`
+2025-01-09T18:17:29.276210Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:225:4 function `parse_tx_description` is never used
+2025-01-09T18:17:29.276231Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:225:4 function `parse_tx_description` is never used
+2025-01-09T18:17:36.349447Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:40.612437Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:41.029695Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:42.032674Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:42.032878Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:42.032897Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:42.032970Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:42.033002Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:42.033021Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:42.033038Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:42.033071Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:42.033099Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:42.033190Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:46.367927Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:46.772648Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:48.047909Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:48.379911Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:49.382884Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:49.383092Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:49.383118Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:49.383141Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:49.383162Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:49.383286Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:49.383301Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:49.383316Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:49.383337Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:49.383399Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:49.975533Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:50.978355Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:50.978383Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:50.978394Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:50.978403Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:50.978407Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:50.978410Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:50.978413Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:50.978416Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:50.978424Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:50.978439Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:51.095270Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:51.341027Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:51.370544Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:52.372812Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:52.372840Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:52.372844Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:52.372847Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:52.372849Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:52.372852Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:52.372854Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:52.372856Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:52.372865Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:52.372881Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:52.920542Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:53.068886Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:53.857128Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:54.066923Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:54.102511Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:55.104687Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:55.104734Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:55.104739Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:55.104742Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:55.104744Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:55.104748Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:55.104751Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:55.104755Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:55.104764Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:55.104776Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:57.746858Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:57.994353Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:58.031878Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:17:59.035537Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:59.035573Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:17:59.035581Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:59.035587Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:17:59.035591Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:59.035597Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:17:59.035601Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:59.035607Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:17:59.035633Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:59.035648Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:17:59.352130Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:17:59.765155Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:18:00.111498Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:18:00.393631Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:18:01.395033Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:01.395116Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:01.395142Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:01.395164Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:01.395186Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:01.395214Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:01.395237Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:01.395291Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:01.395327Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:01.395405Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:02.514969Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:18:03.016414Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:18:03.054584Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:18:03.054624Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:18:04.057159Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:04.057273Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:04.057300Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:04.057693Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:04.057738Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:04.057830Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:04.057861Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:04.057883Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:04.057909Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:04.057989Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:04.687116Z DEBUG main 153: client sent didChange request, updateOnChange is false
+2025-01-09T18:18:04.969765Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:18:05.971950Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:05.971993Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:05.971998Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:05.972002Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:05.972005Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:05.972008Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:05.972012Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:05.972016Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:05.972022Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:05.972036Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:06.221882Z DEBUG main 144: client sent didSave request, updateOnSave is true after waiting bacon for 1s
+2025-01-09T18:18:07.223891Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:07.223934Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+2025-01-09T18:18:07.223939Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:07.223943Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+2025-01-09T18:18:07.223946Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:07.223949Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+2025-01-09T18:18:07.223953Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:07.223957Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+2025-01-09T18:18:07.223960Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-09T18:18:07.223971Z ERROR main 250: malformed line: expected 8 parts in the format of `severity|:|path|:|line_start|:|line_end|:|column_start|:|column_end|:|message|:|replacement` but found 1: warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+2025-01-10T14:37:26.313633Z  INFO main 136: shutdown request received, shutting down
+2025-01-10T14:37:26.314187Z  INFO main 220: bacon-ls v0.9.0 lsp server stopped
+2025-01-10T14:37:26.333555Z  INFO main 204: exit notification received, stopping

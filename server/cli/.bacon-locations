@@ -1,0 +1,10 @@
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:191:9 unused variable: `source_account`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:204:18 unused variable: `description`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:208:13 unused variable: `date`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:212:13 unused variable: `amount`
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
+warning /Users/johannhomonnai/workspace/berry/cli/src/lib.rs:220:4 function `parse_tx_description` is never used
