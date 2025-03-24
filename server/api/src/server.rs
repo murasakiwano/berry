@@ -6,15 +6,7 @@ use axum::{
     Router,
 };
 
-use crate::{
-    configuration::Settings,
-    handlers::{
-        create_account, create_transaction, delete_account, delete_transaction,
-        find_account_by_name, get_account, get_transaction, list_accounts, list_transactions,
-        rename_account,
-    },
-    service::BerryService,
-};
+use crate::{configuration::Settings, handlers, service::BerryService};
 
 /// Global state shared by all request handlers
 #[derive(Debug, Clone)]
@@ -85,14 +77,17 @@ impl Server {
 
 fn api_routes() -> Router<AppState> {
     Router::new()
-        .route("/accounts", post(create_account))
-        .route("/accounts", get(list_accounts))
-        .route("/accounts/find-by-name", get(find_account_by_name))
-        .route("/accounts/{id}", get(get_account))
-        .route("/accounts/{id}", delete(delete_account))
-        .route("/accounts/{id}/name", patch(rename_account))
-        .route("/transactions", post(create_transaction))
-        .route("/transactions", get(list_transactions))
-        .route("/transactions/{id}", get(get_transaction))
-        .route("/transactions/{id}", delete(delete_transaction))
+        .route("/accounts", post(handlers::create_account))
+        .route("/accounts", get(handlers::list_accounts))
+        .route(
+            "/accounts/find-by-name",
+            get(handlers::find_account_by_name),
+        )
+        .route("/accounts/{id}", get(handlers::get_account))
+        .route("/accounts/{id}", delete(handlers::delete_account))
+        .route("/accounts/{id}/name", patch(handlers::rename_account))
+        .route("/transactions", post(handlers::create_transaction))
+        .route("/transactions", get(handlers::list_transactions))
+        .route("/transactions/{id}", get(handlers::get_transaction))
+        .route("/transactions/{id}", delete(handlers::delete_transaction))
 }
