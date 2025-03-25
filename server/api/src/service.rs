@@ -19,6 +19,11 @@ use crate::models::transaction::{
     Transaction, TransactionTitle,
 };
 
+pub struct PaginationParameters {
+    pub limit: i64,
+    pub offset: i64,
+}
+
 #[derive(Debug, Clone)]
 pub struct BerryService {
     pub pool: PgPool,
@@ -498,11 +503,18 @@ WHERE id = $2
     ///
     /// This does not support filters, **yet**. It will return an empty [Vec] if there are no
     /// transactions in the database.
-    pub async fn list_transactions(&self) -> Result<Vec<Transaction>, ListTransactionsError> {
-        let rows = sqlx::query!("SELECT * FROM \"postings\"")
-            .fetch_all(&self.pool)
-            .await
-            .map_err(|e| ListTransactionsError::Unknown(e.into()))?;
+    pub async fn list_transactions(
+        &self,
+        pagination: PaginationParameters,
+    ) -> Result<Vec<Transaction>, ListTransactionsError> {
+        let rows = sqlx::query!(
+            "SELECT * FROM \"postings\" ORDER BY posting_date DESC LIMIT $1 OFFSET $2",
+            pagination.limit,
+            pagination.offset
+        )
+        .fetch_all(&self.pool)
+        .await
+        .map_err(|e| ListTransactionsError::Unknown(e.into()))?;
 
         tracing::debug!(?rows, "Got rows from the database");
 

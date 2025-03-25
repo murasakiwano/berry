@@ -2,10 +2,15 @@ use std::sync::LazyLock;
 
 use berry::{
     configuration::{get_configuration, DatabaseSettings},
-    models::account::AccountName,
+    models::{
+        account::{Account, AccountName},
+        transaction::Transaction,
+    },
     server::Server,
+    service::PaginationParameters,
     telemetry::{get_subscriber, init_subscriber},
 };
+use rand::Rng;
 use reqwest::header::CONTENT_TYPE;
 use secrecy::SecretString;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
@@ -94,9 +99,16 @@ impl TestApp {
             .expect("Failed to execute request.")
     }
 
-    pub async fn list_transactions(&self) -> reqwest::Response {
+    pub async fn list_transactions(
+        &self,
+        pagination: Option<PaginationParameters>,
+    ) -> reqwest::Response {
+        let (offset, limit) = pagination.map(|p| (p.offset, p.limit)).unwrap_or((0, 20));
         self.api_client
-            .get(format!("{}/transactions", &self.address))
+            .get(format!(
+                "{}/transactions?page={}&per_page={}",
+                &self.address, offset, limit
+            ))
             .send()
             .await
             .expect("Failed to execute request.")
@@ -206,4 +218,35 @@ impl TestAccount {
         .await
         .expect("Failed to store test account");
     }
+}
+
+pub async fn generate_fake_transaction(app: &TestApp) -> Transaction {
+    let source_account = create_account_in_app(app).await;
+    let destination_account = create_account_in_app(app).await;
+
+    let mut rng = rand::rng();
+    let body = format!(
+        "title=Test%20transaction&amount={}&source_account_id={}&destination_account_id={}",
+        rng.random::<i32>(),
+        source_account.id(),
+        destination_account.id()
+    );
+    tracing::debug!(request_body = ?body);
+
+    let res = app.post_transaction(body).await.bytes().await.unwrap();
+    tracing::debug!(response=?res, "got response");
+
+    serde_json::from_slice(&res).unwrap()
+}
+
+async fn create_account_in_app(app: &TestApp) -> Account {
+    let account = TestAccount::generate();
+    let account = app
+        .post_account(format!("name={}", account.name.into_url_encoding()))
+        .await
+        .bytes()
+        .await
+        .expect("failed to create account in the app");
+
+    serde_json::from_slice(&account).expect("failed to deserialize body into account")
 }
