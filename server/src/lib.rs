@@ -2,13 +2,14 @@ use anyhow::Context;
 use configuration::get_configuration;
 use server::Server;
 
+pub mod cli;
 pub mod configuration;
 pub mod handlers;
 pub mod models;
 pub mod server;
 pub mod service;
 pub mod telemetry;
-pub mod utils;
+mod utils;
 
 /// Spin up the server -- to be reused whenever I need it
 pub async fn setup_server() -> anyhow::Result<Server> {

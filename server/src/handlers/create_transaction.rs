@@ -15,7 +15,7 @@ use crate::models::transaction::{
 };
 use crate::server::AppState;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Debug)]
 pub struct CreateTransactionRequestBody {
     title: String,
     amount: Decimal,

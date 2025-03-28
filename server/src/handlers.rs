@@ -1,12 +1,12 @@
-mod create_account;
-mod create_transaction;
-mod delete_account;
-mod delete_transaction;
-mod get_account;
-mod get_transaction;
-mod list_accounts;
-mod list_transactions;
-mod rename_account;
+pub mod create_account;
+pub mod create_transaction;
+pub mod delete_account;
+pub mod delete_transaction;
+pub mod get_account;
+pub mod get_transaction;
+pub mod list_accounts;
+pub mod list_transactions;
+pub mod rename_account;
 
 pub use create_account::create_account;
 pub use create_transaction::create_transaction;

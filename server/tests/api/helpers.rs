@@ -12,6 +12,8 @@ use berry::{
 };
 use rand::Rng;
 use reqwest::header::CONTENT_TYPE;
+use rust_decimal::{prelude::FromPrimitive as _, Decimal};
+use rust_decimal_macros::dec;
 use secrecy::SecretString;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use uuid::Uuid;
@@ -225,15 +227,29 @@ pub async fn generate_fake_transaction(app: &TestApp) -> Transaction {
     let destination_account = create_account_in_app(app).await;
 
     let mut rng = rand::rng();
-    let body = format!(
-        "title=Test%20transaction&amount={}&source_account_id={}&destination_account_id={}",
-        rng.random::<i32>(),
-        source_account.id(),
-        destination_account.id()
-    );
-    tracing::debug!(request_body = ?body);
+    let body = &[
+        ("title", "Test transaction"),
+        (
+            "amount",
+            &Decimal::from_f32(rng.random())
+                .unwrap_or(dec!(0))
+                .to_string(),
+        ),
+        ("source_account_id", &source_account.id().to_string()),
+        (
+            "destination_account_id",
+            &destination_account.id().to_string(),
+        ),
+    ];
+    let body = serde_urlencoded::to_string(body).unwrap();
+    tracing::debug!(request_body = body);
 
-    let res = app.post_transaction(body).await.bytes().await.unwrap();
+    let res = app
+        .post_transaction(body.to_string())
+        .await
+        .bytes()
+        .await
+        .unwrap();
     tracing::debug!(response=?res, "got response");
 
     serde_json::from_slice(&res).unwrap()
