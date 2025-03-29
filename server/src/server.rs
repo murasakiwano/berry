@@ -2,9 +2,11 @@ use std::sync::Arc;
 
 use anyhow::Context;
 use axum::{
-    routing::{delete, get, patch, post},
     Router,
+    routing::{delete, get, patch, post},
 };
+use http::{HeaderValue, Method};
+use tower_http::cors::CorsLayer;
 
 use crate::{configuration::Settings, handlers, service::BerryService};
 
@@ -31,6 +33,10 @@ impl Server {
             },
         );
 
+        let cors_layer = CorsLayer::new()
+            .allow_methods([Method::GET, Method::POST])
+            .allow_origin("*".parse::<HeaderValue>()?);
+
         let pool = BerryService::new(&config.database).await?;
 
         let state = AppState {
@@ -39,6 +45,7 @@ impl Server {
 
         let router = axum::Router::new()
             .nest("/api", api_routes())
+            .layer(cors_layer)
             .layer(trace_layer)
             .with_state(state);
 

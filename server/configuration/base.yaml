@@ -6,5 +6,5 @@ database:
   password: "password"
   port: 5432
   host: "localhost"
-  database_name: "postgres"
+  database_name: "berry"
   require_ssl: false
