@@ -1,1 +1,12 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@plugin 'daisyui' {
+	themes:
+		light --default,
+		dark --prefersdark,
+		forest,
+		coffee,
+		night,
+		sunset,
+		abyss,
+		synthwave;
+}
