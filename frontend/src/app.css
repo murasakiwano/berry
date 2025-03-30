@@ -2,11 +2,15 @@
 @plugin 'daisyui' {
 	themes:
 		light --default,
-		dark --prefersdark,
-		forest,
+		dark,
+		forest --prefersdark,
 		coffee,
 		night,
 		sunset,
 		abyss,
 		synthwave;
+}
+@plugin 'daisyui/theme' {
+	name: "dark";
+	--depth: 0;
 }

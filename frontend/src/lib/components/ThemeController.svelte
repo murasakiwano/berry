@@ -19,7 +19,15 @@
 		});
 	}
 
-	const availableThemes = ["default", "forest", "coffee", "night", "sunset", "abyss", "synthwave"];
+	const availableThemes = [
+		"default",
+		"forest",
+		"coffee",
+		"night",
+		"sunset",
+		"abyss",
+		"synthwave"
+	];
 </script>
 
 <div class="dropdown dropdown-center">
