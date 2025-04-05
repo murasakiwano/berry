@@ -41,8 +41,7 @@
 			cell: ({ row }) =>
 				renderComponent(Checkbox, {
 					checked: row.getIsSelected(),
-					indeterminate: row.getIsSomeSelected() && !row.getIsAllSubRowsSelected(),
-					onCheckedChange: (value) => row.toggleExpanded(value),
+					onCheckedChange: (value) => row.toggleSelected(value),
 					"aria-label": "Select row",
 				}),
 		}),
@@ -248,20 +247,26 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="flex items-center justify-end space-x-2 py-4">
-		<Button.Root
-			class="btn btn-outline btn-sm"
-			onclick={() => table.previousPage()}
-			disabled={!table.getCanPreviousPage()}
-		>
-			Previous
-		</Button.Root>
-		<Button.Root
-			class="btn btn-outline btn-sm"
-			onclick={() => table.nextPage()}
-			disabled={!table.getCanNextPage()}
-		>
-			Next
-		</Button.Root>
+	<div class="flex items-center py-4">
+		<div class="text-neutral-content/80 flex-1 pl-2 text-sm">
+			{table.getFilteredSelectedRowModel().rows.length} de{" "}
+			{table.getFilteredRowModel().rows.length} fileira(s) selecionada(s).
+		</div>
+		<div class="flex items-center justify-end space-x-2">
+			<Button.Root
+				class="btn btn-outline btn-sm"
+				onclick={() => table.previousPage()}
+				disabled={!table.getCanPreviousPage()}
+			>
+				Previous
+			</Button.Root>
+			<Button.Root
+				class="btn btn-outline btn-sm"
+				onclick={() => table.nextPage()}
+				disabled={!table.getCanNextPage()}
+			>
+				Next
+			</Button.Root>
+		</div>
 	</div>
 </div>
