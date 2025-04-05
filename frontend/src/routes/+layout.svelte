@@ -5,7 +5,7 @@
 	let { children } = $props();
 </script>
 
-<header class="navbar bg-base-200 mb-4 shadow-sm">
+<header class="navbar bg-base-300 mb-4 shadow-md">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -46,4 +46,6 @@
 	</div>
 </header>
 
-{@render children?.()}
+<main class="p-4">
+	{@render children?.()}
+</main>
