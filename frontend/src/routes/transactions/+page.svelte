@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TransactionsTable from "$lib/components/table/TransactionsTable.svelte";
+	import TransactionsTable from "$lib/components/table/data-table.svelte";
 	import type { PageProps } from "./$types";
 
 	const { data }: PageProps = $props();

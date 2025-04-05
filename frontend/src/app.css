@@ -3,13 +3,15 @@
 	themes:
 		light --default,
 		dark --prefersdark,
+		emerald,
 		forest,
 		coffee,
 		night,
 		sunset,
 		abyss,
 		synthwave,
-		business;
+		business,
+		wireframe;
 }
 @plugin 'daisyui/theme' {
 	name: "dark";
