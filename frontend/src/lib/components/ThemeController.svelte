@@ -2,6 +2,8 @@
 	import { browser } from "$app/environment";
 
 	import { capitalize } from "$lib";
+	import { DropdownMenu } from "bits-ui";
+	import PaintBrushBroad from "phosphor-svelte/lib/PaintBrushBroad";
 
 	let theme = $state("default");
 
@@ -20,45 +22,43 @@
 	}
 
 	const availableThemes = [
-		"default",
-		"forest",
+		"abyss",
+		"business",
 		"coffee",
+		"dark",
+		"darkberry",
+		"forest",
+		"light",
 		"night",
 		"sunset",
-		"abyss",
-		"synthwave"
+		"synthwave",
 	];
 </script>
 
 <div class="dropdown dropdown-center">
-	<div tabindex="0" role="button" class="btn m-1">
-		Theme
-		<svg
-			width="12px"
-			height="12px"
-			class="inline-block h-2 w-2 fill-current opacity-60"
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 2048 2048"
-		>
-			<path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
-		</svg>
-	</div>
-	<ul
-		tabindex="0"
-		class="menu bg-base-100 dropdown-content z-1 w-auto rounded-sm p-2 shadow-2xl"
-		role="radiogroup"
-	>
-		{#each availableThemes as t}
-			<li>
-				<input
-					type="radio"
-					name="theme-dropdown"
-					class="theme-controller btn btn-sm btn-block btn-ghost my-1"
-					aria-label={capitalize(t)}
-					value={t}
-					bind:group={theme}
-				/>
-			</li>
-		{/each}
-	</ul>
+	<DropdownMenu.Root>
+		<DropdownMenu.Trigger class="btn btn-ghost mr-8">
+			<PaintBrushBroad class="text-primary h-5 w-5" />
+		</DropdownMenu.Trigger>
+
+		<DropdownMenu.Portal>
+			<DropdownMenu.Content>
+				<DropdownMenu.RadioGroup
+					bind:value={theme}
+					class="menu bg-base-200 dropdown-content w-auto rounded-sm p-0 shadow-lg"
+				>
+					{#each availableThemes as theme}
+						<DropdownMenu.RadioItem
+							value={theme}
+							class="theme-controller hover:bg-primary hover:text-primary-content my-1 px-2 py-1 font-medium"
+						>
+							{#snippet children()}
+								{capitalize(theme)}
+							{/snippet}
+						</DropdownMenu.RadioItem>
+					{/each}
+				</DropdownMenu.RadioGroup>
+			</DropdownMenu.Content>
+		</DropdownMenu.Portal>
+	</DropdownMenu.Root>
 </div>
