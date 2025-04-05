@@ -27,6 +27,7 @@
 		"coffee",
 		"dark",
 		"darkberry",
+		"emerald",
 		"forest",
 		"light",
 		"night",
@@ -35,17 +36,17 @@
 	];
 </script>
 
-<div class="dropdown dropdown-center">
-	<DropdownMenu.Root>
-		<DropdownMenu.Trigger class="btn btn-ghost mr-8">
-			<PaintBrushBroad class="text-primary h-5 w-5" />
+<DropdownMenu.Root>
+	<div class="dropdown">
+		<DropdownMenu.Trigger class="btn bg-base-300 hover:bg-base-200 border-base-300 mr-8">
+			<PaintBrushBroad weight="bold" class="text-primary h-5 w-5" />
 		</DropdownMenu.Trigger>
 
 		<DropdownMenu.Portal>
-			<DropdownMenu.Content>
+			<DropdownMenu.Content class="dropdown-content">
 				<DropdownMenu.RadioGroup
 					bind:value={theme}
-					class="menu bg-base-200 dropdown-content w-auto rounded-sm p-0 shadow-lg"
+					class="bg-base-200 w-auto rounded-sm p-0 shadow-lg"
 				>
 					{#each availableThemes as theme}
 						<DropdownMenu.RadioItem
@@ -60,5 +61,5 @@
 				</DropdownMenu.RadioGroup>
 			</DropdownMenu.Content>
 		</DropdownMenu.Portal>
-	</DropdownMenu.Root>
-</div>
+	</div>
+</DropdownMenu.Root>
