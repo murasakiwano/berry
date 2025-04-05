@@ -62,3 +62,22 @@ async fn list_transactions_returns_paginated_transactions_from_the_database() {
 
     assert_eq!(transactions.len(), 10);
 }
+
+#[tokio::test]
+async fn list_transactions_returns_all_transactions_if_no_query_parameters_are_received() {
+    let app = spawn_app().await;
+
+    for _ in 0..30 {
+        generate_fake_transaction(&app).await;
+    }
+
+    let response = app.list_transactions(None).await;
+    let status = response.status().as_u16();
+
+    assert_eq!(StatusCode::OK, status);
+
+    let body = response.bytes().await.unwrap();
+    let transactions: Vec<Transaction> = serde_json::from_slice(&body).unwrap();
+
+    assert_eq!(transactions.len(), 30);
+}

@@ -1,10 +1,12 @@
-use anyhow::{anyhow, Context};
+use anyhow::{Context, anyhow};
+use chrono::DateTime;
 use chrono::Utc;
 use rust_decimal::Decimal;
 use rust_decimal_macros::dec;
-use sqlx::postgres::PgPoolOptions;
 use sqlx::Executor;
 use sqlx::PgPool;
+use sqlx::Row;
+use sqlx::postgres::PgPoolOptions;
 use uuid::Uuid;
 
 use crate::configuration::DatabaseSettings;
@@ -501,43 +503,59 @@ WHERE id = $2
 
     /// List all transactions in the database.
     ///
-    /// This does not support filters, **yet**. It will return an empty [Vec] if there are no
-    /// transactions in the database.
+    /// It will return an empty [Vec] if there are no transactions in the database.
+    /// TODO: Add support for filters in the future.
     pub async fn list_transactions(
         &self,
-        pagination: PaginationParameters,
+        pagination: Option<PaginationParameters>,
     ) -> Result<Vec<Transaction>, ListTransactionsError> {
-        let rows = sqlx::query!(
-            "SELECT * FROM \"postings\" ORDER BY posting_date DESC LIMIT $1 OFFSET $2",
-            pagination.limit,
-            pagination.offset
-        )
-        .fetch_all(&self.pool)
-        .await
-        .map_err(|e| ListTransactionsError::Unknown(e.into()))?;
+        let mut query = String::from(
+            r##"SELECT
+                id, title, amount, source_account_id, destination_account_id, category, posting_date
+               FROM "postings"
+               ORDER BY posting_date DESC"##,
+        );
 
-        tracing::debug!(?rows, "Got rows from the database");
+        let mut args = sqlx::query(&query);
+
+        if let Some(pagination) = pagination {
+            query.push_str(" LIMIT $1 OFFSET $2");
+            args = sqlx::query(&query)
+                .bind(pagination.limit)
+                .bind(pagination.offset)
+        }
+
+        let rows = args
+            .fetch_all(&self.pool)
+            .await
+            .map_err(|e| ListTransactionsError::Unknown(e.into()))?;
+
+        tracing::debug!(row_count = rows.len(), "Got rows from the database");
 
         rows.iter()
             .map(|r| {
-                let transaction_title = TransactionTitle::new(&r.title)
-                    .map_err(|e| ListTransactionsError::Unknown(e.into()))?;
+                let title: String = r.try_get::<String, &str>("title")?;
+                let transaction_title = TransactionTitle::new(&title).map_err(|e| {
+                    tracing::error!(error = ?e, "Failed to fetch transactions from the database");
+                    ListTransactionsError::Unknown(e.into())
+                })?;
+                let id = r.try_get::<Uuid, &str>("id")?;
+                let amount = r.try_get::<Decimal, &str>("amount")?;
+                let source_account_id = r.try_get::<Uuid, &str>("source_account_id")?;
+                let destination_account_id = r.try_get::<Uuid, &str>("destination_account_id")?;
+                let category = r.try_get::<Option<String>, &str>("category")?;
+                let posting_date = r.try_get::<DateTime<Utc>, &str>("posting_date")?;
 
                 let transaction = Transaction::new(
-                    r.id,
+                    id,
                     transaction_title,
-                    r.amount,
-                    r.source_account_id,
-                    r.destination_account_id,
-                    r.category.clone(),
-                    r.posting_date,
+                    amount,
+                    source_account_id,
+                    destination_account_id,
+                    category,
+                    posting_date,
                 );
-                tracing::info!(
-                    ?r.id,
-                    ?r.source_account_id,
-                    ?r.destination_account_id,
-                    "Successfully retrieved transaction"
-                );
+                tracing::info!(?id, "Successfully retrieved transaction");
 
                 Ok(transaction)
             })

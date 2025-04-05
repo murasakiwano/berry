@@ -1,7 +1,7 @@
 use std::sync::LazyLock;
 
 use berry::{
-    configuration::{get_configuration, DatabaseSettings},
+    configuration::{DatabaseSettings, get_configuration},
     models::{
         account::{Account, AccountName},
         transaction::Transaction,
@@ -12,7 +12,7 @@ use berry::{
 };
 use rand::Rng;
 use reqwest::header::CONTENT_TYPE;
-use rust_decimal::{prelude::FromPrimitive as _, Decimal};
+use rust_decimal::{Decimal, prelude::FromPrimitive as _};
 use rust_decimal_macros::dec;
 use secrecy::SecretString;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
@@ -105,12 +105,12 @@ impl TestApp {
         &self,
         pagination: Option<PaginationParameters>,
     ) -> reqwest::Response {
-        let (offset, limit) = pagination.map(|p| (p.offset, p.limit)).unwrap_or((0, 20));
+        let mut url = format!("{}/transactions", &self.address);
+        if let Some(PaginationParameters { offset, limit }) = pagination {
+            url.push_str(&format!("?page={}&per_page={}", offset, limit));
+        }
         self.api_client
-            .get(format!(
-                "{}/transactions?page={}&per_page={}",
-                &self.address, offset, limit
-            ))
+            .get(url)
             .send()
             .await
             .expect("Failed to execute request.")

@@ -38,4 +38,6 @@ pub enum GetTransactionError {
 pub enum ListTransactionsError {
     #[error(transparent)]
     Unknown(#[from] anyhow::Error),
+    #[error(transparent)]
+    SqlxError(#[from] sqlx::Error),
 }
