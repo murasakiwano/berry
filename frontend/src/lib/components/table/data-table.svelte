@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { type Transaction } from "$lib";
-	import { createSvelteTable, renderComponent, renderSnippet } from "$lib/table";
+	import { createSvelteTable } from "$lib/table";
 	import FlexRender from "$lib/table/flex-render.svelte";
-	import { DateFormatter, getLocalTimeZone } from "@internationalized/date";
 	import {
-		createColumnHelper,
 		getCoreRowModel,
 		getFilteredRowModel,
 		getPaginationRowModel,
@@ -15,82 +13,14 @@
 		type SortingState,
 		type VisibilityState,
 	} from "@tanstack/table-core";
-	import { Button, DropdownMenu } from "bits-ui";
-	import Check from "phosphor-svelte/lib/Check";
-	import { createRawSnippet } from "svelte";
-	import Checkbox from "../Checkbox.svelte";
-	import TableActions from "./data-table-actions.svelte";
-	import DataTableDateButton from "./data-table-date-button.svelte";
+	import { Button } from "bits-ui";
+	import { columnDefs } from "./columns";
+	import DataTableViewOptions from "./data-table-view-options.svelte";
+	import DataTableToolbar from "./data-table-toolbar.svelte";
+	import DataTablePagination from "./data-table-pagination.svelte";
 
 	type Props = { transactions: Transaction[] };
 	let { transactions }: Props = $props();
-
-	const colHelp = createColumnHelper<Transaction>();
-
-	const columnDefs = [
-		colHelp.display({
-			id: "select",
-			header: ({ table }) =>
-				renderComponent(Checkbox, {
-					checked: table.getIsAllPageRowsSelected(),
-					indeterminate:
-						table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected(),
-					onCheckedChange: (value) => table.toggleAllPageRowsSelected(value),
-					"aria-label": "Select all",
-				}),
-			cell: ({ row }) =>
-				renderComponent(Checkbox, {
-					checked: row.getIsSelected(),
-					onCheckedChange: (value) => row.toggleSelected(value),
-					"aria-label": "Select row",
-				}),
-		}),
-		colHelp.accessor("postingDate", {
-			header: ({ column }) =>
-				renderComponent(DataTableDateButton, {
-					onclick: () => column.toggleSorting(column.getIsSorted() === "asc"),
-				}),
-			cell: ({ getValue }) => {
-				const formatter = new DateFormatter("pt-BR", {
-					dateStyle: "full",
-					timeStyle: "short",
-				});
-
-				return formatter.format(getValue().toDate(getLocalTimeZone()));
-			},
-		}),
-		colHelp.accessor("title", { header: "Descrição" }),
-		colHelp.accessor("sourceAccount", { header: "Conta de Origem" }),
-		colHelp.accessor("destinationAccount", { header: "Conta de Destino" }),
-		colHelp.accessor("amount", {
-			header: () => {
-				const amountHeaderSnippet = createRawSnippet(() => ({
-					render: () => `<div class="text-right">Quantia</div>`,
-				}));
-				return renderSnippet(amountHeaderSnippet, "");
-			},
-			cell: ({ row }) => {
-				const formatter = new Intl.NumberFormat("pt-BF", {
-					style: "currency",
-					currency: "BRL",
-				});
-
-				const amountCellSnippet = createRawSnippet<[string]>((getAmount) => {
-					const amount = getAmount();
-					return {
-						render: () => `<div class="text-right font-medium">${amount}</div>`,
-					};
-				});
-
-				return renderSnippet(amountCellSnippet, formatter.format(row.getValue("amount")));
-			},
-		}),
-		colHelp.accessor("categories", { header: "Categorias" }),
-		colHelp.display({
-			id: "actions",
-			cell: ({ row }) => renderComponent(TableActions, { id: row.original.id }),
-		}),
-	];
 
 	let pagination = $state<PaginationState>({ pageIndex: 0, pageSize: 10 });
 	let sorting = $state<SortingState>([]);
@@ -163,50 +93,7 @@
 </script>
 
 <div class="mx-auto max-w-[90%]">
-	<div class="flex items-center py-4">
-		<input
-			type="text"
-			placeholder="Filtrar conta de origem..."
-			value={(table.getColumn("sourceAccount")?.getFilterValue() as string) ?? ""}
-			onchange={(e) => {
-				table.getColumn("sourceAccount")?.setFilterValue(e.currentTarget.value);
-			}}
-			oninput={(e) => {
-				table.getColumn("sourceAccount")?.setFilterValue(e.currentTarget.value);
-			}}
-			class="input max-w-sm"
-		/>
-		<DropdownMenu.Root>
-			<DropdownMenu.Trigger>
-				{#snippet child({ props })}
-					<Button.Root {...props} class="btn btn-outline ml-auto">Columns</Button.Root>
-				{/snippet}
-			</DropdownMenu.Trigger>
-			<DropdownMenu.Portal>
-				<DropdownMenu.Content align="end" side="top" class="menu bg-base-200">
-					{#each table
-						.getAllColumns()
-						.filter((col) => col.getCanHide()) as column (column)}
-						<DropdownMenu.CheckboxItem
-							class="data-[highlighted]:bg-accent data-[highlighted]:text-accent-content relative flex cursor-default items-center rounded-sm p-1.5 pr-2 pl-8 text-sm capitalize outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-							bind:checked={
-								() => column.getIsVisible(), (v) => column.toggleVisibility(v)
-							}
-						>
-							{#if column.getIsVisible()}
-								<span
-									class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center"
-								>
-									<Check class="h-4 w-4" />
-								</span>
-							{/if}
-							{column.id}
-						</DropdownMenu.CheckboxItem>
-					{/each}
-				</DropdownMenu.Content>
-			</DropdownMenu.Portal>
-		</DropdownMenu.Root>
-	</div>
+	<DataTableToolbar {table} />
 	<div class="border-base-content/5 bg-base-100 w-full overflow-x-auto rounded-md border">
 		<table class="table border-collapse">
 			<thead class="bg-neutral text-neutral-content">
@@ -247,26 +134,5 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="flex items-center py-4">
-		<div class="text-neutral-content/80 flex-1 pl-2 text-sm">
-			{table.getFilteredSelectedRowModel().rows.length} de{" "}
-			{table.getFilteredRowModel().rows.length} fileira(s) selecionada(s).
-		</div>
-		<div class="flex items-center justify-end space-x-2">
-			<Button.Root
-				class="btn btn-outline btn-sm"
-				onclick={() => table.previousPage()}
-				disabled={!table.getCanPreviousPage()}
-			>
-				Previous
-			</Button.Root>
-			<Button.Root
-				class="btn btn-outline btn-sm"
-				onclick={() => table.nextPage()}
-				disabled={!table.getCanNextPage()}
-			>
-				Next
-			</Button.Root>
-		</div>
-	</div>
+	<DataTablePagination {table} />
 </div>

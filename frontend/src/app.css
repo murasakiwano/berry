@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @plugin 'daisyui' {
 	themes:
@@ -6,10 +8,7 @@
 		emerald,
 		forest,
 		coffee,
-		night,
 		sunset,
-		abyss,
-		synthwave,
 		business,
 		wireframe;
 }
@@ -51,4 +50,45 @@
 	--border: 1px;
 	--depth: 0;
 	--noise: 0;
+}
+
+@plugin "daisyui/theme" {
+	name: "shadaisy";
+	default: false;
+	prefersdark: false;
+	color-scheme: "dark";
+	--color-base-100: oklch(14% 0.004 49.25);
+	--color-base-200: oklch(21% 0.006 56.043);
+	--color-base-300: oklch(26% 0.007 34.298);
+	--color-base-content: oklch(97% 0.001 106.424);
+	--color-primary: oklch(0.72 0.1921 149.58);
+	--color-primary-content: oklch(0.27 0.0628 152.95);
+	--color-secondary: oklch(85% 0.138 181.071);
+	--color-secondary-content: oklch(27% 0.046 192.524);
+	--color-accent: oklch(83% 0.145 321.434);
+	--color-accent-content: oklch(29% 0.136 325.661);
+	--color-neutral: oklch(26% 0.007 34.298);
+	--color-neutral-content: oklch(98% 0.001 106.423);
+	--color-info: oklch(58% 0.158 241.966);
+	--color-info-content: oklch(97% 0.013 236.62);
+	--color-success: oklch(59% 0.145 163.225);
+	--color-success-content: oklch(97% 0.021 166.113);
+	--color-warning: oklch(87% 0.169 91.605);
+	--color-warning-content: oklch(27% 0.077 45.635);
+	--color-error: oklch(51% 0.222 16.935);
+	--color-error-content: oklch(96% 0.015 12.422);
+	--radius-selector: 2rem;
+	--radius-field: 0.25rem;
+	--radius-box: 1rem;
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+	--border: 1px;
+	--depth: 0;
+	--noise: 0;
+}
+
+[data-select-content] {
+	width: var(--bits-select-anchor-width);
+	min-width: var(--bits-select-anchor-width);
+	max-width: var(--bits-select-anchor-width);
 }

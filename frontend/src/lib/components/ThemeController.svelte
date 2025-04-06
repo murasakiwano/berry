@@ -22,17 +22,14 @@
 	}
 
 	const availableThemes = [
-		"abyss",
 		"business",
 		"coffee",
 		"dark",
 		"darkberry",
 		"emerald",
-		"forest",
 		"light",
-		"night",
+		"shadaisy",
 		"sunset",
-		"synthwave",
 		"wireframe",
 	];
 </script>
