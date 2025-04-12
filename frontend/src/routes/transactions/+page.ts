@@ -1,5 +1,5 @@
 import { PUBLIC_API_BASE_URL } from "$env/static/public";
-import { TransactionSchema, type Transaction } from "$lib";
+import { TransactionSchema, type Transaction } from "$lib/models";
 import { error } from "@sveltejs/kit";
 import { err, errAsync, ok, okAsync, ResultAsync } from "neverthrow";
 import type { PageLoad } from "./$types";

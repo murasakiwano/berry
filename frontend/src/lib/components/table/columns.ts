@@ -1,4 +1,4 @@
-import type { Transaction } from "$lib";
+import type { Transaction } from "$lib/models";
 import { renderComponent, renderSnippet } from "$lib/table";
 import { DateFormatter, getLocalTimeZone } from "@internationalized/date";
 import { createColumnHelper } from "@tanstack/table-core";

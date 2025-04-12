@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Transaction } from "$lib";
+	import { type Transaction } from "$lib/models";
 	import { createSvelteTable } from "$lib/table";
 	import FlexRender from "$lib/table/flex-render.svelte";
 	import {
@@ -13,9 +13,7 @@
 		type SortingState,
 		type VisibilityState,
 	} from "@tanstack/table-core";
-	import { Button } from "bits-ui";
 	import { columnDefs } from "./columns";
-	import DataTableViewOptions from "./data-table-view-options.svelte";
 	import DataTableToolbar from "./data-table-toolbar.svelte";
 	import DataTablePagination from "./data-table-pagination.svelte";
 
