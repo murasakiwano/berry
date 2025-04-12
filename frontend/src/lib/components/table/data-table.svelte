@@ -95,7 +95,7 @@
 <div class="mx-auto max-w-[90%]">
 	<DataTableToolbar {table} />
 	<div class="border-base-content/5 bg-base-100 w-full overflow-x-auto rounded-md border">
-		<table class="table border-collapse">
+		<table class="table table-auto border-collapse">
 			<thead class="bg-neutral text-neutral-content">
 				{#each table.getHeaderGroups() as headerGroup (headerGroup.id)}
 					<tr>
