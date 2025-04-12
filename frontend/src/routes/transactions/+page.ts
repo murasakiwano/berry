@@ -1,50 +1,47 @@
 import { PUBLIC_API_BASE_URL } from "$env/static/public";
-import { error } from "@sveltejs/kit";
-import { err, ok, ResultAsync } from "neverthrow";
 import { TransactionSchema, type Transaction } from "$lib";
+import { error } from "@sveltejs/kit";
+import { err, errAsync, ok, okAsync, ResultAsync } from "neverthrow";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch }): Promise<{ transactions: Transaction[] }> => {
-	const response = await ResultAsync.fromPromise(
+	const transactionsResult = await ResultAsync.fromPromise(
 		fetch(`${PUBLIC_API_BASE_URL}/transactions`),
-		(err) => {
-			if (err instanceof Error) {
-				console.error(err);
-				return new Error(`failed to fetch transactions: ${err.message}`);
+		(error) => {
+			if (error instanceof Error) {
+				console.error(error);
+				return { status: 500, body: `failed to fetch transactions: ${error.message}` };
 			}
-			throw err;
-		}
-	);
+			return { status: 500, body: `unknown error occurred: ${error}` };
+		},
+	)
+		.andThen((res) => {
+			if (!res.ok) {
+				return errAsync({ status: res.status, body: res.statusText });
+			}
 
-	if (response.isErr()) {
-		error(500, response.error.message);
-	}
+			return okAsync(res);
+		})
+		.andThen((res) =>
+			ResultAsync.fromPromise(res.json(), (err: unknown) => ({
+				status: 500,
+				body: `failed to parse json: ${err}`,
+			})),
+		)
+		.andThen((body: unknown) => {
+			const parsedBody = TransactionSchema.array().safeParse(body);
+			if (parsedBody.error) {
+				return err({ status: 500, body: parsedBody.error.toString() });
+			}
 
-	const res = response.value;
+			return ok(parsedBody.data);
+		});
 
-	if (!res.ok) {
-		error(res.status, res.statusText);
-	}
-
-	const body = (
-		await ResultAsync.fromPromise(res.json(), (e) => new Error(`failed to parse json: ${e}`))
-	).andThen((b: unknown) => {
-		const parseResult = TransactionSchema.array().safeParse(b);
-		if (parseResult.error) {
-			return err(parseResult.error);
-		}
-
-		const txs = parseResult.data;
-
-		return ok(txs);
-	});
-
-	if (body.isErr()) {
-		console.error(body.error);
-		error(500, body.error.message);
+	if (transactionsResult.isErr()) {
+		error(transactionsResult.error.status, transactionsResult.error.body);
 	}
 
 	return {
-		transactions: body.value
+		transactions: transactionsResult.value,
 	};
 };
