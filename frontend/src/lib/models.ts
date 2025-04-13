@@ -1,7 +1,7 @@
 import { parseDateTime } from "@internationalized/date";
 import { z } from "zod";
 
-const txSchemaSnakeCase = z.object({
+export const TxSchemaSnakeCase = z.object({
 	id: z.string().uuid(),
 	title: z.string().nonempty(),
 	amount: z.number(),
@@ -16,7 +16,7 @@ const txSchemaSnakeCase = z.object({
 	categories: z.optional(z.array(z.string())),
 });
 
-export const TransactionSchema = txSchemaSnakeCase.transform((arg) => ({
+export const TransactionSchema = TxSchemaSnakeCase.transform((arg) => ({
 	id: arg.id,
 	title: arg.title,
 	amount: arg.amount,
