@@ -3,7 +3,7 @@
 
 	import { capitalize } from "$lib";
 	import { DropdownMenu } from "bits-ui";
-	import PaintBrushBroad from "phosphor-svelte/lib/PaintBrushBroad";
+	import { Paintbrush } from "@lucide/svelte";
 
 	let theme = $state("default");
 
@@ -37,7 +37,7 @@
 <DropdownMenu.Root>
 	<div class="dropdown-center">
 		<DropdownMenu.Trigger class="btn bg-base-300 hover:bg-base-200 border-base-300 mr-8">
-			<PaintBrushBroad weight="bold" class="h-5 w-5" />
+			<Paintbrush class="h-5 w-5" />
 		</DropdownMenu.Trigger>
 
 		<DropdownMenu.Portal>

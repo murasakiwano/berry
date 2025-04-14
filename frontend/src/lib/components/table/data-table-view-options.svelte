@@ -1,7 +1,7 @@
 <script lang="ts" generics="TData">
 	import type { Table } from "@tanstack/table-core";
 	import { Button, DropdownMenu } from "bits-ui";
-	import Check from "phosphor-svelte/lib/Check";
+	import { Check } from "@lucide/svelte";
 
 	let { table }: { table: Table<TData> } = $props();
 </script>

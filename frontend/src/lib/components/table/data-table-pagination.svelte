@@ -1,14 +1,15 @@
 <script lang="ts" generics="TData">
 	import type { Table } from "@tanstack/table-core";
 	import { Button, Select } from "bits-ui";
-	import CaretDoubleLeft from "phosphor-svelte/lib/CaretDoubleLeft";
-	import CaretLeft from "phosphor-svelte/lib/CaretLeft";
-	import CaretRight from "phosphor-svelte/lib/CaretRight";
-	import CaretDoubleRight from "phosphor-svelte/lib/CaretDoubleRight";
-	import Check from "phosphor-svelte/lib/Check";
-	import CaretUpDown from "phosphor-svelte/lib/CaretUpDown";
-	import CaretDoubleUp from "phosphor-svelte/lib/CaretDoubleUp";
-	import CaretDoubleDown from "phosphor-svelte/lib/CaretDoubleDown";
+	import {
+		ChevronsLeft,
+		ChevronLeft,
+		ChevronRight,
+		ChevronsRight,
+		ChevronsDownUp,
+		ChevronsUp,
+		ChevronsDown,
+	} from "@lucide/svelte";
 
 	let { table }: { table: Table<TData> } = $props();
 
@@ -37,7 +38,7 @@
 					aria-label="Select a page size"
 				>
 					{selectedLabel}
-					<CaretUpDown class="text-neutral-content ml-auto size-6" />
+					<ChevronsDownUp class="text-neutral-content ml-auto size-6" />
 				</Select.Trigger>
 				<Select.Portal>
 					<Select.Content
@@ -45,7 +46,7 @@
 						sideOffset={10}
 					>
 						<Select.ScrollUpButton class="flex w-full items-center justify-center">
-							<CaretDoubleUp class="size-3" />
+							<ChevronsUp class="size-3" />
 						</Select.ScrollUpButton>
 						<Select.Viewport class="p-1">
 							{#each pageSizes as { value } (value)}
@@ -59,7 +60,7 @@
 							{/each}
 						</Select.Viewport>
 						<Select.ScrollDownButton class="flex w-full items-center justify-center">
-							<CaretDoubleDown class="size-3" />
+							<ChevronsDown class="size-3" />
 						</Select.ScrollDownButton>
 					</Select.Content>
 				</Select.Portal>
@@ -76,7 +77,7 @@
 				disabled={!table.getCanPreviousPage()}
 			>
 				<span class="sr-only">Go to first page</span>
-				<CaretDoubleLeft />
+				<ChevronsLeft />
 			</Button.Root>
 			<Button.Root
 				class="btn btn-outline size-8 p-0"
@@ -84,7 +85,7 @@
 				disabled={!table.getCanPreviousPage()}
 			>
 				<span class="sr-only">Go to previous page</span>
-				<CaretLeft />
+				<ChevronLeft />
 			</Button.Root>
 			<Button.Root
 				class="btn btn-outline size-8 p-0"
@@ -92,7 +93,7 @@
 				disabled={!table.getCanNextPage()}
 			>
 				<span class="sr-only">Go to next page</span>
-				<CaretRight />
+				<ChevronRight />
 			</Button.Root>
 			<Button.Root
 				class="btn btn-outline hidden size-8 p-0 lg:flex"
@@ -100,7 +101,7 @@
 				disabled={!table.getCanNextPage()}
 			>
 				<span class="sr-only">Go to last page</span>
-				<CaretDoubleRight />
+				<ChevronsRight />
 			</Button.Root>
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DotsThree from "phosphor-svelte/lib/DotsThree";
+	import { Ellipsis } from "@lucide/svelte";
 	import { Button, DropdownMenu } from "bits-ui";
 
 	let { id }: { id: string } = $props();
@@ -14,7 +14,7 @@
 					class="btn btn-circle bg-base-100 hover:bg-accent hover:text-accent-content relative size-8 h-10 w-10 border-none p-0"
 				>
 					<span class="sr-only">Open menu</span>
-					<DotsThree class="size-7" />
+					<Ellipsis class="size-7" />
 				</Button.Root>
 			{/snippet}
 		</DropdownMenu.Trigger>

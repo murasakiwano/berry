@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ArrowsDownUp from "phosphor-svelte/lib/ArrowsDownUp";
+	import { ArrowDownUp } from "@lucide/svelte";
 	import { Button } from "bits-ui";
 
 	let props: Button.RootProps = $props();
@@ -7,5 +7,5 @@
 
 <Button.Root class="btn btn-ghost" {...props}>
 	Data
-	<ArrowsDownUp class="ml-2" />
+	<ArrowDownUp class="ml-2" />
 </Button.Root>

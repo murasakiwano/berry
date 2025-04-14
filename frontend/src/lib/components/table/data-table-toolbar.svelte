@@ -3,7 +3,7 @@
 	import DataTableViewOptions from "./data-table-view-options.svelte";
 	import { SOURCE_ACCOUNT_COL_ID } from "./columns";
 	import { Button } from "bits-ui";
-	import X from "phosphor-svelte/lib/X";
+	import { X } from "@lucide/svelte";
 
 	let { table }: { table: Table<TData> } = $props();
 
