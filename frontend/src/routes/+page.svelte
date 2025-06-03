@@ -4,6 +4,14 @@
 	import { CalendarDateTime } from "@internationalized/date";
 </script>
 
+<div class="mb-6 flex justify-between items-center">
+	<h1 class="text-3xl font-bold">Dashboard</h1>
+	<div class="space-x-2">
+		<a href="/accounts/new" class="btn btn-primary">Create Account</a>
+		<a href="/transactions/new" class="btn btn-primary">Add Transaction</a>
+	</div>
+</div>
+
 <div class="mb-4 flex justify-center">
 	<div class="stats shadow">
 		<BalanceCard accountName="Checking" balance={-42} />

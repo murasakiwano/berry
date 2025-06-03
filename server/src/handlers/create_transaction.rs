@@ -1,9 +1,9 @@
 use std::str::FromStr as _;
 
 use anyhow::Context as _;
-use axum::http::StatusCode;
 use axum::Json;
-use axum::{extract::State, Form};
+use axum::http::StatusCode;
+use axum::{Form, extract::State};
 use chrono::NaiveDateTime;
 use rust_decimal::Decimal;
 use serde::Deserialize;
@@ -16,6 +16,7 @@ use crate::models::transaction::{
 use crate::server::AppState;
 
 #[derive(Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 pub struct CreateTransactionRequestBody {
     title: String,
     amount: Decimal,

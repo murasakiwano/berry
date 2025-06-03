@@ -1,4 +1,4 @@
-export const wrapError = (e: unknown, statusCode: number = 500) => {
+export const wrapApiError = (e: unknown, statusCode: number = 500) => {
 	if (e instanceof Error) {
 		return { status: statusCode, body: e.message };
 	}

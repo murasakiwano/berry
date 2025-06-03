@@ -14,6 +14,7 @@ pub use errors::*;
 /// A uniquely identifiable monetary transaction between two [Account]s.
 /// All amounts are represented as cents.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Transaction {
     id: Uuid,
     title: TransactionTitle,

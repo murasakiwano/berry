@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ThemeController from "$lib/components/ThemeController.svelte";
+	// import { Toaster } from "svelte-sonner";
 	import "../app.css";
 
 	let { children } = $props();
@@ -29,6 +30,7 @@
 				class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
 			>
 				<li><a href="/transactions">Transactions</a></li>
+				<li><a href="/accounts">Accounts</a></li>
 			</ul>
 		</div>
 
@@ -38,6 +40,7 @@
 	<div class="navbar-center hidden lg:flex">
 		<ul class="menu menu-horizontal px-1">
 			<li><a href="/transactions">Transactions</a></li>
+			<li><a href="/accounts">Accounts</a></li>
 		</ul>
 	</div>
 
@@ -47,5 +50,6 @@
 </header>
 
 <main class="p-4">
+	<!-- <Toaster /> -->
 	{@render children?.()}
 </main>
