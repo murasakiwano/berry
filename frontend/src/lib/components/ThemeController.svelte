@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { browser } from "$app/environment";
+	import { invalidateAll } from "$app/navigation";
 	import { capitalize } from "$lib";
 	import { DropdownMenu } from "bits-ui";
 	import { Laptop, Moon, Paintbrush, Sun } from "@lucide/svelte";
 	import { onMount } from "svelte";
 
-	let theme = $state("default");
+	let { currentTheme = "light" }: { currentTheme?: string } = $props();
+
+	let theme = $state(currentTheme);
 	let systemTheme = $state("light");
 
 	const themeCategories = {
@@ -20,14 +23,45 @@
 	}
 
 	function applyTheme(selectedTheme: string): void {
+		if (!browser) return;
 		const themeToApply = selectedTheme === "system" ? systemTheme : selectedTheme;
 		document.documentElement.setAttribute("data-theme", themeToApply);
+		document.body.setAttribute("data-theme", themeToApply);
+	}
+
+	function setThemeCookie(themeName: string): void {
+		if (!browser) return;
+		
+		const expires = new Date();
+		expires.setFullYear(expires.getFullYear() + 1);
+		
+		document.cookie = `berry-theme=${themeName}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+	}
+
+	function updateTheme(newTheme: string) {
+		theme = newTheme;
+		applyTheme(newTheme);
+		setThemeCookie(newTheme);
+		
+		// Save to localStorage as backup
+		try {
+			localStorage.setItem('theme', newTheme);
+		} catch (e) {
+			console.warn('Could not save theme to localStorage:', e);
+		}
+
+		// Invalidate to update server state
+		invalidateAll();
 	}
 
 	if (browser) {
 		onMount(() => {
+			// Initialize with current theme
+			theme = currentTheme;
 			systemTheme = getSystemTheme();
+			applyTheme(theme);
 
+			// Set up system theme change listener
 			const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 			const handleThemeChange = (e: MediaQueryListEvent) => {
 				systemTheme = e.matches ? "dark" : "light";
@@ -38,26 +72,9 @@
 
 			mediaQuery.addEventListener("change", handleThemeChange);
 
-			const saved = localStorage.getItem("theme");
-			if (saved) {
-				theme = saved;
-			}
-
-			applyTheme(theme);
-
 			return () => {
 				mediaQuery.removeEventListener("change", handleThemeChange);
 			};
-		});
-
-		$effect(() => {
-			localStorage.setItem("theme", theme);
-			applyTheme(theme);
-		});
-
-		$effect(() => {
-			localStorage.setItem("theme", theme);
-			document.documentElement.setAttribute("data-theme", theme);
 		});
 	}
 </script>
@@ -79,13 +96,12 @@
 
 					<DropdownMenu.RadioGroup bind:value={theme} class="w-full">
 						<!-- System theme option -->
-						<div
-							class="text-base-content/50 px-2 pt-2 pb-1 text-xs font-medium uppercase"
-						>
+						<div class="text-base-content/50 px-2 pt-2 pb-1 text-xs font-medium uppercase">
 							System
 						</div>
 						<DropdownMenu.RadioItem
 							value="system"
+							onclick={() => updateTheme("system")}
 							class="theme-controller hover:bg-primary hover:text-primary-content focus-visible:bg-primary focus-visible:text-primary-content my-1 flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium focus-visible:outline-none"
 						>
 							<Laptop class="h-4 w-4" />
@@ -93,14 +109,13 @@
 						</DropdownMenu.RadioItem>
 
 						<!-- Light themes -->
-						<div
-							class="text-base-content/50 px-2 pt-2 pb-1 text-xs font-medium uppercase"
-						>
+						<div class="text-base-content/50 px-2 pt-2 pb-1 text-xs font-medium uppercase">
 							Light
 						</div>
 						{#each themeCategories.light as themeName}
 							<DropdownMenu.RadioItem
 								value={themeName}
+								onclick={() => updateTheme(themeName)}
 								class="theme-controller hover:bg-primary hover:text-primary-content focus-visible:bg-primary focus-visible:text-primary-content my-1 flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium focus-visible:outline-none"
 								data-theme={themeName}
 							>
@@ -110,14 +125,13 @@
 						{/each}
 
 						<!-- Dark themes -->
-						<div
-							class="text-base-content/50 px-2 pt-2 pb-1 text-xs font-medium uppercase"
-						>
+						<div class="text-base-content/50 px-2 pt-2 pb-1 text-xs font-medium uppercase">
 							Dark
 						</div>
 						{#each themeCategories.dark as themeName}
 							<DropdownMenu.RadioItem
 								value={themeName}
+								onclick={() => updateTheme(themeName)}
 								class="theme-controller hover:bg-primary hover:text-primary-content focus-visible:bg-primary focus-visible:text-primary-content my-1 flex w-full cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium focus-visible:outline-none"
 								data-theme={themeName}
 							>

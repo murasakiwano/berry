@@ -1,3 +1,4 @@
+<!-- frontend/src/app.html -->
 <!doctype html>
 <html lang="en">
 	<head>
@@ -9,6 +10,47 @@
 				import("https://unpkg.com/@oddbird/css-anchor-positioning");
 			}
 		</script>
+		
+		<!-- Simple theme application script -->
+		<script>
+			(function() {
+				function getSystemTheme() {
+					return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+				}
+
+				function getCookie(name) {
+					const cookies = document.cookie.split(';');
+					for (let cookie of cookies) {
+						const [cookieName, cookieValue] = cookie.trim().split('=');
+						if (cookieName === name) {
+							return cookieValue;
+						}
+					}
+					return null;
+				}
+
+				function applyTheme(theme) {
+					const resolvedTheme = theme === 'system' ? getSystemTheme() : theme;
+					document.documentElement.setAttribute('data-theme', resolvedTheme);
+					return resolvedTheme;
+				}
+
+				// Get theme from cookie first, then localStorage, then default
+				let theme = getCookie('berry-theme');
+				if (!theme) {
+					try {
+						theme = localStorage.getItem('theme');
+					} catch (e) {
+						// Ignore errors
+					}
+				}
+				theme = theme || 'light';
+
+				// Apply theme immediately to prevent FOUC
+				applyTheme(theme);
+			})();
+		</script>
+		
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
