@@ -20,7 +20,7 @@ pub async fn create_account(
 
         (
             StatusCode::BAD_REQUEST,
-            "Account name must not be empty".to_string(),
+            "account name must not be empty".to_string(),
         )
     })?;
 
@@ -31,13 +31,13 @@ pub async fn create_account(
         .map_err(|err| match err {
             CreateAccountError::Duplicate { name } => (
                 StatusCode::UNPROCESSABLE_ENTITY,
-                format!("An account with the name {} already exists", name),
+                format!("an account with the name \"{}\" already exists", name),
             ),
             CreateAccountError::Unknown(cause) => {
                 tracing::error!("{:?}\n{}", cause, cause.backtrace());
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
+                    "internal server error".to_string(),
                 )
             }
         })?;

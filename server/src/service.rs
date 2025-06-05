@@ -143,7 +143,7 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
         self.pool
             .begin()
             .await
-            .context("Failed to start PostgreSQL transaction")
+            .context("failed to start PostgreSQL transaction")
     }
 
     /// Persists an [Account] to the database
@@ -212,7 +212,7 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
 
         let account_name = AccountName::new(&row.name)
             .map_err(|e| GetAccountError::Unknown(e.into()))
-            .context(format!("Failed to create account name from {}", row.name))?;
+            .context(format!("failed to create account name from {}", row.name))?;
         let account = Account::new(row.id, account_name, row.balance);
 
         tracing::debug!(?account, "Found account");
@@ -240,7 +240,7 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
 
         let account_name = AccountName::new(&row.name)
             .map_err(|e| GetAccountByNameError::Unknown(e.into()))
-            .context(format!("Failed to create account name from {}", row.name))?;
+            .context(format!("failed to create account name from {}", row.name))?;
         let account = Account::new(row.id, account_name, row.balance);
 
         tracing::debug!(?account, "Found account");
@@ -331,7 +331,7 @@ WHERE id = $2
             .await?;
         tx.commit()
             .await
-            .context("Failed to commit PostgreSQL transaction")?;
+            .context("failed to commit PostgreSQL transaction")?;
 
         Ok(account)
     }

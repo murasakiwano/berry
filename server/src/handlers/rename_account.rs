@@ -1,6 +1,6 @@
+use axum::Form;
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
-use axum::Form;
 use serde::Deserialize;
 use uuid::Uuid;
 
@@ -31,18 +31,18 @@ pub async fn rename_account(
         .map_err(|e| match e {
             UpdateAccountError::NotFound { id } => (
                 StatusCode::UNPROCESSABLE_ENTITY,
-                format!("Account with id {} does not exist", id),
+                format!("account with id {} does not exist", id),
             ),
             UpdateAccountError::Duplicate { name } => (
                 StatusCode::UNPROCESSABLE_ENTITY,
-                format!("Account with name {} already exists", name),
+                format!("account with name {} already exists", name),
             ),
             UpdateAccountError::Unknown(cause) => {
                 tracing::error!("{:?}\n{}", cause, cause.backtrace());
 
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
+                    "internal server error".to_string(),
                 )
             }
         })?;

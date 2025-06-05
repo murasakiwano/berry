@@ -25,7 +25,7 @@ pub async fn delete_transaction(
                 tracing::error!(error = ?e, "failed to delete transaction");
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
+                    "internal server error".to_string(),
                 )
             }
         })?;

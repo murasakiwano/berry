@@ -80,18 +80,18 @@ pub async fn create_transaction(
         .map_err(|e| match e {
             CreateTransactionError::SourceAccountNotFound { id } => (
                 StatusCode::NOT_FOUND,
-                format!("Could not find source account {}", id),
+                format!("could not find source account {}", id),
             ),
             CreateTransactionError::DestinationAccountNotFound { id } => (
                 StatusCode::NOT_FOUND,
-                format!("Could not find destination account {}", id),
+                format!("could not find destination account {}", id),
             ),
             CreateTransactionError::Unknown(cause) => {
                 tracing::error!("{:?}\n{}", cause, cause.backtrace());
 
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
+                    "internal server error".to_string(),
                 )
             }
         })?;

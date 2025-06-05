@@ -1,4 +1,4 @@
-use axum::{extract::State, http::StatusCode, Json};
+use axum::{Json, extract::State, http::StatusCode};
 
 use crate::{
     models::account::{Account, ListAccountsError},
@@ -16,7 +16,7 @@ pub async fn list_accounts(
             ListAccountsError::Unknown(cause) => {
                 tracing::error!("{:?}\n{}", cause, cause.backtrace());
 
-                (StatusCode::INTERNAL_SERVER_ERROR, "Internal server error")
+                (StatusCode::INTERNAL_SERVER_ERROR, "internal server error")
             }
         })?;
 

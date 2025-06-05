@@ -35,11 +35,11 @@ pub async fn list_transactions(
         .list_transactions(pagination_parameters)
         .await
         .map_err(|e| {
-            tracing::error!(error = ?e, "An error occurred when listing all transactions");
+            tracing::error!(error = ?e, "an error occurred when listing all transactions");
 
             (
                 StatusCode::INTERNAL_SERVER_ERROR,
-                "Internal server error".to_string(),
+                "internal server error".to_string(),
             )
         })?;
 

@@ -1,6 +1,6 @@
+use axum::Json;
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
-use axum::Json;
 use uuid::Uuid;
 
 use crate::models::transaction::{GetTransactionError, Transaction};
@@ -17,14 +17,14 @@ pub async fn get_transaction(
         .map_err(|e| match e {
             GetTransactionError::TransactionNotFound { id } => (
                 StatusCode::NOT_FOUND,
-                format!("Transaction with id {} does not exist", id),
+                format!("transaction with id {} does not exist", id),
             ),
             GetTransactionError::Unknown(cause) => {
                 tracing::error!("{:?}\n{}", cause, cause.backtrace());
 
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
+                    "internal server error".to_string(),
                 )
             }
         })?;

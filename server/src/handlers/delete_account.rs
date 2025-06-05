@@ -16,13 +16,13 @@ pub async fn delete_account(
         .map_err(|e| match e {
             DeleteAccountError::NotFound { id } => (
                 StatusCode::UNPROCESSABLE_ENTITY,
-                format!("Account with id {} does not exist.", id),
+                format!("account with id {} does not exist.", id),
             ),
             DeleteAccountError::Unknown(e) => {
                 tracing::error!("{:?}", e);
                 (
                     StatusCode::INTERNAL_SERVER_ERROR,
-                    "Internal server error".to_string(),
+                    "internal server error".to_string(),
                 )
             }
         })?;
