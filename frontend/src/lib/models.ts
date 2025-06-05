@@ -3,8 +3,8 @@ import { z } from "zod";
 
 // Custom zod schema for DateValue objects
 const dateValueSchema = z.custom<DateValue>(
-	(val) => val && typeof val === 'object' && 'calendar' in val,
-	{ message: 'Expected a valid DateValue object' }
+	(val) => val && typeof val === "object" && "calendar" in val,
+	{ message: "Expected a valid DateValue object" },
 );
 
 export const TransactionSchema = z.object({
@@ -30,7 +30,7 @@ export const TxFormSchema = TransactionSchema.extend({
 	// Convert DateValue to string format expected by the API
 	postingDate: dateValueSchema.transform((dateValue) => {
 		// Format date as ISO string: YYYY-MM-DD
-		return `${dateValue.year}-${dateValue.month.toString().padStart(2, '0')}-${dateValue.day.toString().padStart(2, '0')}`;
+		return `${dateValue.year}-${dateValue.month.toString().padStart(2, "0")}-${dateValue.day.toString().padStart(2, "0")}`;
 	}),
 });
 
@@ -45,17 +45,18 @@ export const TxSchemaOptionalId = z.object({
 	destinationAccount: z.string().nonempty(),
 	// Keep postingDate as DateValue for client-side form validation
 	postingDate: dateValueSchema,
-	categories: z
-		.string()
-		.optional(),
+	categories: z.string().optional(),
 });
 
 export type Transaction = z.infer<typeof TransactionSchema>;
 
-export const accountSchema = z.object({
+export const AccountSchema = z.object({
 	id: z.string().uuid(),
 	name: z.string().nonempty(),
-	balance: z.number(),
+	balance: z
+		.string()
+		.transform(parseFloat)
+		.refine((balance) => !isNaN(balance), { message: "Balance must be a valid number" }),
 });
 
-export type Account = z.infer<typeof accountSchema>;
+export type Account = z.infer<typeof AccountSchema>;

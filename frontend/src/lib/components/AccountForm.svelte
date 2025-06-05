@@ -2,18 +2,28 @@
 	import { superForm, type SuperValidated } from "sveltekit-superforms";
 	import { z } from "zod";
 	import { zodClient } from "sveltekit-superforms/adapters";
+	import { toast, Toaster } from "svelte-sonner";
 
 	const accountSchema = z.object({ name: z.string().min(1, "Account name is required") });
 
 	type Props = { form: SuperValidated<{ name: string }> };
 	let { form: serverForm }: Props = $props();
 
-	const { form, errors, constraints, message, enhance } = superForm(serverForm.data, {
+	const { form, errors, constraints, enhance, reset } = superForm(serverForm.data, {
 		validators: zodClient(accountSchema),
+		onUpdated: ({ form }) => {
+			if (form.valid) {
+				toast.success(form.message, {
+					description: "Account created successfully",
+					duration: 4000,
+				});
+				reset();
+			} else {
+				toast.error(form.message);
+			}
+		},
 	});
 </script>
-
-{#if $message}<h3 class="text-error">{message}</h3>{/if}
 
 <form method="POST" use:enhance class="my-4">
 	<fieldset

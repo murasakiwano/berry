@@ -1,9 +1,11 @@
 <script lang="ts">
-	import ThemeController from "$lib/components/ThemeController.svelte";
-	// import { Toaster } from "svelte-sonner";
 	import "../app.css";
+	import { Toaster } from "svelte-sonner";
+	import ThemeController from "$lib/components/ThemeController.svelte";
+	import type { LayoutData } from "./$types";
+	import type { Snippet } from "svelte";
 
-	let { children } = $props();
+	let { children, data }: { children: Snippet; data: LayoutData } = $props();
 </script>
 
 <header class="navbar bg-base-300 mb-4 shadow-md">
@@ -45,11 +47,11 @@
 	</div>
 
 	<div class="navbar-end">
-		<ThemeController />
+		<ThemeController currentTheme={data.theme} />
 	</div>
 </header>
 
 <main class="p-4">
-	<!-- <Toaster /> -->
+	<Toaster />
 	{@render children?.()}
 </main>
