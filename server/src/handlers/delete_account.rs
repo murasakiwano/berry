@@ -8,7 +8,7 @@ use crate::server::AppState;
 pub async fn delete_account(
     State(state): State<AppState>,
     Path(id): Path<Uuid>,
-) -> anyhow::Result<StatusCode, (StatusCode, String)> {
+) -> Result<StatusCode, (StatusCode, String)> {
     state
         .service
         .delete_account(id)
