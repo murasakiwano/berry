@@ -198,7 +198,7 @@ mod tests {
 
     #[test]
     fn deserialize_json() {
-        let raw = "{\"id\":\"b309f1bc-c1b6-4dd4-8404-c8c8627025a9\",\"title\":\"test\",\"amount\":42,\"source_account_id\":\"ef342846-ecea-43e7-a69e-fea1686a2f7c\",\"destination_account_id\":\"0f08a046-0338-40b1-97c6-5feb925b6f84\",\"category\":null,\"posting_date\":\"2025-01-06T14:56:00.760515Z\"}";
+        let raw = "{\"id\":\"b309f1bc-c1b6-4dd4-8404-c8c8627025a9\",\"title\":\"test\",\"amount\":42,\"sourceAccountId\":\"ef342846-ecea-43e7-a69e-fea1686a2f7c\",\"destinationAccountId\":\"0f08a046-0338-40b1-97c6-5feb925b6f84\",\"category\":null,\"postingDate\":\"2025-01-06T14:56:00.760515Z\"}";
 
         let result: Result<Transaction, serde_json::Error> = serde_json::from_str(raw);
 
@@ -207,7 +207,7 @@ mod tests {
 
     #[test]
     fn deserialize_invalid_json_no_title() {
-        let raw = "{\"id\":\"b309f1bc-c1b6-4dd4-8404-c8c8627025a9\",\"title\":\"\",\"amount\":42,\"source_account_id\":\"ef342846-ecea-43e7-a69e-fea1686a2f7c\",\"destination_account_id\":\"0f08a046-0338-40b1-97c6-5feb925b6f84\",\"category\":null,\"posting_date\":\"2025-01-06T14:56:00.760515Z\"}";
+        let raw = "{\"id\":\"b309f1bc-c1b6-4dd4-8404-c8c8627025a9\",\"title\":\"\",\"amount\":42,\"sourceAccountId\":\"ef342846-ecea-43e7-a69e-fea1686a2f7c\",\"destinationAccountId\":\"0f08a046-0338-40b1-97c6-5feb925b6f84\",\"category\":null,\"postingDate\":\"2025-01-06T14:56:00.760515Z\"}";
         let result: Result<Transaction, serde_json::Error> = serde_json::from_str(raw);
 
         assert!(result.is_err());

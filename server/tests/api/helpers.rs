@@ -211,11 +211,11 @@ impl TestAccount {
     }
 
     pub async fn store(&self, pool: &PgPool) {
-        sqlx::query!(
-            r#"INSERT INTO accounts (id, name) VALUES ($1, $2)"#,
-            self.id,
-            &self.name.to_string()
+        sqlx::query(
+            r#"INSERT INTO accounts (id, name) VALUES ($1, $2)"#
         )
+        .bind(self.id)
+        .bind(&self.name.to_string())
         .execute(pool)
         .await
         .expect("Failed to store test account");

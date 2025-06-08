@@ -3,7 +3,6 @@ use chrono::DateTime;
 use chrono::Utc;
 use rust_decimal::Decimal;
 use rust_decimal_macros::dec;
-use sqlx::Executor;
 use sqlx::PgPool;
 use sqlx::Row;
 use sqlx::postgres::PgPoolOptions;
@@ -46,8 +45,11 @@ impl BerryService {
     ) -> Result<Uuid, sqlx::Error> {
         let id = Uuid::new_v4();
         let name = &name.to_string();
-        let query = sqlx::query!("INSERT INTO accounts (id, name) VALUES ($1, $2)", id, name,);
-        tx.execute(query).await?;
+        sqlx::query("INSERT INTO accounts (id, name) VALUES ($1, $2)")
+            .bind(id)
+            .bind(name)
+            .execute(&mut **tx)
+            .await?;
         Ok(id)
     }
 
@@ -62,19 +64,20 @@ impl BerryService {
         let category = req.category().as_ref().map(|c| c.to_string());
         let amount = req.amount();
         let posting_date = Utc::now();
-        let query = sqlx::query!(
+        sqlx::query(
             "INSERT INTO postings (
-id, title, amount, source_account_id, destination_account_id, category, posting_date
-) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-            id,
-            title,
-            amount,
-            req.source_account_id(),
-            req.destination_account_id(),
-            category,
-            posting_date
-        );
-        tx.execute(query).await?;
+                id, title, amount, source_account_id, destination_account_id, category, posting_date
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7)"
+        )
+        .bind(id)
+        .bind(title)
+        .bind(amount)
+        .bind(req.source_account_id())
+        .bind(req.destination_account_id())
+        .bind(category)
+        .bind(posting_date)
+        .execute(&mut **tx)
+        .await?;
 
         Ok(id)
     }
@@ -117,11 +120,11 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
         id: Uuid,
         new_balance: Decimal,
     ) -> Result<Account, UpdateAccountError> {
-        let row = sqlx::query!(
-            "UPDATE accounts SET balance = balance + $1 WHERE id = $2 RETURNING *",
-            new_balance,
-            id
+        let row = sqlx::query(
+            "UPDATE accounts SET balance = balance + $1 WHERE id = $2 RETURNING id, name, balance"
         )
+        .bind(new_balance)
+        .bind(id)
         .fetch_one(&mut **tx)
         .await
         .map_err(|e| match e {
@@ -129,10 +132,14 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
             _ => UpdateAccountError::Unknown(e.into()),
         })?;
 
+        let account_id: Uuid = row.try_get("id").unwrap();
+        let name: String = row.try_get("name").unwrap();
+        let balance: Decimal = row.try_get("balance").unwrap();
+
         Ok(Account::new(
-            row.id,
-            AccountName::new(&row.name).unwrap(),
-            row.balance,
+            account_id,
+            AccountName::new(&name).unwrap(),
+            balance,
         ))
     }
 
@@ -178,7 +185,7 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
     /// This does not support filters, **yet**. It will return an empty [Vec] if there are no
     /// accounts in the database.
     pub async fn list_accounts(&self) -> Result<Vec<Account>, ListAccountsError> {
-        let rows = sqlx::query!("SELECT * FROM accounts")
+        let rows = sqlx::query("SELECT id, name, balance FROM accounts")
             .fetch_all(&self.pool)
             .await
             .map_err(|e| ListAccountsError::Unknown(e.into()))?;
@@ -186,11 +193,12 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
         Ok(rows
             .iter()
             .map(|r| {
-                // Account names in the database are, by design, valid
-                let account_name = AccountName::new(&r.name).unwrap();
-                // Account ids in the database are, by design, valid UUIDs
-                tracing::debug!(id = ?r.id, account_name = ?account_name);
-                Account::new(r.id, account_name, r.balance)
+                let id: Uuid = r.try_get("id").unwrap();
+                let name: String = r.try_get("name").unwrap();
+                let balance: Decimal = r.try_get("balance").unwrap();
+                let account_name = AccountName::new(&name).unwrap();
+                tracing::debug!(id = ?id, account_name = ?account_name);
+                Account::new(id, account_name, balance)
             })
             .collect())
     }
@@ -202,7 +210,8 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
     /// - [GetAccountError::NotFound] if no [Account] with the given id exists
     /// - [GetAccountError::Unknown] in case any other error occurred
     pub async fn get_account_by_id(&self, id: Uuid) -> Result<Account, GetAccountError> {
-        let row = sqlx::query!("SELECT * FROM accounts WHERE id = $1", id)
+        let row = sqlx::query("SELECT id, name, balance FROM accounts WHERE id = $1")
+            .bind(id)
             .fetch_one(&self.pool)
             .await
             .map_err(|e| match e {
@@ -210,10 +219,14 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
                 err => GetAccountError::Unknown(err.into()),
             })?;
 
-        let account_name = AccountName::new(&row.name)
+        let account_id: Uuid = row.try_get("id").unwrap();
+        let name: String = row.try_get("name").unwrap();
+        let balance: Decimal = row.try_get("balance").unwrap();
+
+        let account_name = AccountName::new(&name)
             .map_err(|e| GetAccountError::Unknown(e.into()))
-            .context(format!("failed to create account name from {}", row.name))?;
-        let account = Account::new(row.id, account_name, row.balance);
+            .context(format!("failed to create account name from {}", name))?;
+        let account = Account::new(account_id, account_name, balance);
 
         tracing::debug!(?account, "Found account");
 
@@ -230,7 +243,8 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
         &self,
         name: &AccountName,
     ) -> Result<Account, GetAccountByNameError> {
-        let row = sqlx::query!("SELECT * FROM accounts WHERE name = $1", name.to_string())
+        let row = sqlx::query("SELECT id, name, balance FROM accounts WHERE name = $1")
+            .bind(name.to_string())
             .fetch_one(&self.pool)
             .await
             .map_err(|e| match e {
@@ -238,10 +252,14 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
                 err => GetAccountByNameError::Unknown(err.into()),
             })?;
 
-        let account_name = AccountName::new(&row.name)
+        let account_id: Uuid = row.try_get("id").unwrap();
+        let name_str: String = row.try_get("name").unwrap();
+        let balance: Decimal = row.try_get("balance").unwrap();
+
+        let account_name = AccountName::new(&name_str)
             .map_err(|e| GetAccountByNameError::Unknown(e.into()))
-            .context(format!("failed to create account name from {}", row.name))?;
-        let account = Account::new(row.id, account_name, row.balance);
+            .context(format!("failed to create account name from {}", name_str))?;
+        let account = Account::new(account_id, account_name, balance);
 
         tracing::debug!(?account, "Found account");
 
@@ -283,15 +301,11 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
         id: Uuid,
         new_name: AccountName,
     ) -> Result<(), UpdateAccountError> {
-        let result = sqlx::query!(
-            "
-UPDATE accounts
-SET name = $1
-WHERE id = $2
-",
-            new_name.to_string(),
-            id
+        let result = sqlx::query(
+            "UPDATE accounts SET name = $1 WHERE id = $2"
         )
+        .bind(new_name.to_string())
+        .bind(id)
         .execute(&self.pool)
         .await
         .map_err(|e| {
@@ -343,7 +357,8 @@ WHERE id = $2
     /// - [DeleteAccountError::NotFound] if no [Account] with the given id exists
     /// - [DeleteAccountError::Unknown] in case any other kind of error occurred
     pub async fn delete_account(&self, id: Uuid) -> Result<(), DeleteAccountError> {
-        let result = sqlx::query!("DELETE FROM accounts WHERE id = $1", id)
+        let result = sqlx::query("DELETE FROM accounts WHERE id = $1")
+            .bind(id)
             .execute(&self.pool)
             .await
             .map_err(|e| DeleteAccountError::Unknown(e.into()))?;
@@ -429,14 +444,10 @@ WHERE id = $2
     /// - [DeleteTransactionError::Unknown] in casy any other kind of error occurred
     pub async fn delete_transaction(&self, id: Uuid) -> Result<(), DeleteTransactionError> {
         let mut tx = self.start_psql_transaction().await?;
-        let row = sqlx::query!(
-            "
-         DELETE FROM \"postings\"
-         WHERE id = $1
-         RETURNING source_account_id, destination_account_id, amount
-         ",
-            id
+        let row = sqlx::query(
+            "DELETE FROM postings WHERE id = $1 RETURNING source_account_id, destination_account_id, amount"
         )
+        .bind(id)
         .fetch_one(&mut *tx)
         .await
         .map_err(|e| match e {
@@ -444,13 +455,14 @@ WHERE id = $2
             e => DeleteTransactionError::Unknown(e.into()),
         })?;
 
-        let (source_account_id, destination_acount_id) =
-            (row.source_account_id, row.destination_account_id);
+        let source_account_id: Uuid = row.try_get("source_account_id").unwrap();
+        let destination_account_id: Uuid = row.try_get("destination_account_id").unwrap();
+        let amount: Decimal = row.try_get("amount").unwrap();
 
-        self.add_balance_to_account(&mut tx, source_account_id, row.amount)
+        self.add_balance_to_account(&mut tx, source_account_id, amount)
             .await
             .context("failed to reset source account balance")?;
-        self.add_balance_to_account(&mut tx, destination_acount_id, -row.amount)
+        self.add_balance_to_account(&mut tx, destination_account_id, -amount)
             .await
             .context("failed to reset destination account balance")?;
 
@@ -471,30 +483,40 @@ WHERE id = $2
         &self,
         id: Uuid,
     ) -> Result<Transaction, GetTransactionError> {
-        let row = sqlx::query!("SELECT * FROM postings WHERE id = $1", id)
-            .fetch_one(&self.pool)
-            .await
-            .map_err(|e| match e {
-                sqlx::Error::RowNotFound => GetTransactionError::TransactionNotFound { id },
-                _ => GetTransactionError::Unknown(e.into()),
-            })?;
+        let row = sqlx::query(
+            "SELECT id, title, amount, source_account_id, destination_account_id, category, posting_date FROM postings WHERE id = $1"
+        )
+        .bind(id)
+        .fetch_one(&self.pool)
+        .await
+        .map_err(|e| match e {
+            sqlx::Error::RowNotFound => GetTransactionError::TransactionNotFound { id },
+            _ => GetTransactionError::Unknown(e.into()),
+        })?;
 
-        let transaction_title = TransactionTitle::new(&row.title)
+        let title: String = row.try_get("title").unwrap();
+        let amount: Decimal = row.try_get("amount").unwrap();
+        let source_account_id: Uuid = row.try_get("source_account_id").unwrap();
+        let destination_account_id: Uuid = row.try_get("destination_account_id").unwrap();
+        let category: Option<String> = row.try_get("category").unwrap();
+        let posting_date: DateTime<Utc> = row.try_get("posting_date").unwrap();
+
+        let transaction_title = TransactionTitle::new(&title)
             .map_err(|e| GetTransactionError::Unknown(e.into()))?;
 
         let transaction = Transaction::new(
             id,
             transaction_title,
-            row.amount,
-            row.source_account_id,
-            row.destination_account_id,
-            row.category,
-            row.posting_date,
+            amount,
+            source_account_id,
+            destination_account_id,
+            category,
+            posting_date,
         );
         tracing::info!(
             ?id,
-            ?row.source_account_id,
-            ?row.destination_account_id,
+            ?source_account_id,
+            ?destination_account_id,
             "Successfully created transaction"
         );
 
