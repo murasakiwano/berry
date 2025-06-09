@@ -14,7 +14,6 @@ pub use errors::*;
 /// A uniquely identifiable monetary transaction between two [Account]s.
 /// All amounts are represented as cents.
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Transaction {
     id: Uuid,
     title: TransactionTitle,
@@ -202,7 +201,7 @@ mod tests {
 
         let result: Result<Transaction, serde_json::Error> = serde_json::from_str(raw);
 
-        assert!(result.is_ok());
+        assert!(result.is_ok(), "Failed to deserialize json: ${:?}", result);
     }
 
     #[test]

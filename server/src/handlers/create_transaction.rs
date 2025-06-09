@@ -16,7 +16,6 @@ use crate::models::transaction::{
 use crate::server::AppState;
 
 #[derive(Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
 pub struct CreateTransactionRequestBody {
     title: String,
     amount: Decimal,

@@ -14,8 +14,12 @@ use rand::Rng;
 use reqwest::header::CONTENT_TYPE;
 use rust_decimal::{Decimal, prelude::FromPrimitive as _};
 use rust_decimal_macros::dec;
-use secrecy::SecretString;
+use secrecy::{ExposeSecret, SecretString};
 use sqlx::{Connection, Executor, PgConnection, PgPool};
+use testcontainers_modules::{
+    postgres::Postgres,
+    testcontainers::{ContainerAsync, runners::AsyncRunner},
+};
 use uuid::Uuid;
 
 // NOTE: this code is from the book "Zero to Production In Rust".
@@ -33,6 +37,8 @@ pub struct TestApp {
     pub address: String,
     pub api_client: reqwest::Client,
     pub test_account: TestAccount,
+    #[allow(dead_code)] // Just to make it not go out of scope
+    container: ContainerAsync<Postgres>,
 }
 
 impl TestApp {
@@ -140,13 +146,18 @@ impl TestApp {
 pub async fn spawn_app() -> TestApp {
     LazyLock::force(&TRACING);
 
-    let configuration = {
-        let mut c = get_configuration(None).expect("Failed to read configuration.");
-        c.database.database_name = Uuid::new_v4().to_string();
-        // Use a random OS port
-        c.application.port = 0;
-        c
-    };
+    let mut configuration = get_configuration(None).expect("Failed to read configuration.");
+    configuration.database.database_name = Uuid::new_v4().to_string();
+    // Use a random OS port
+    configuration.application.port = 0;
+
+    let (container, host, port) = start_postgres_container(
+        &configuration.database.username,
+        configuration.database.password.expose_secret(),
+    )
+    .await;
+    configuration.database.host = host;
+    configuration.database.port = port;
 
     // Create and migrate the database
     let pool = configure_database(&configuration.database).await;
@@ -165,11 +176,31 @@ pub async fn spawn_app() -> TestApp {
         address: format!("http://localhost:{}/api", application_port),
         api_client: client,
         test_account: TestAccount::generate(),
+        container,
     };
 
     test_app.test_account.store(&pool).await;
 
     test_app
+}
+
+async fn start_postgres_container(
+    user: &str,
+    password: &str,
+) -> (ContainerAsync<Postgres>, String, u16) {
+    let node = Postgres::default()
+        .with_user(user)
+        .with_password(password)
+        .start()
+        .await
+        .expect("failed to start postgres container");
+    let port = node
+        .get_host_port_ipv4(5432)
+        .await
+        .expect("failed to get postgres port");
+    let host = node.get_host().await.expect("failed to get postgres host");
+
+    (node, host.to_string(), port)
 }
 
 async fn configure_database(config: &DatabaseSettings) -> PgPool {
