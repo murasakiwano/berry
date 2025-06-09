@@ -156,7 +156,7 @@ id, title, amount, source_account_id, destination_account_id, category, posting_
         let mut tx = self.start_psql_transaction().await?;
 
         let account_id = self.save_account(&mut tx, req).await.map_err(|e| {
-            if is_unique_constraing_violation(&e) {
+            if is_unique_constraint_violation(&e) {
                 CreateAccountError::Duplicate { name: req.clone() }
             } else {
                 anyhow!(e)
@@ -295,7 +295,7 @@ WHERE id = $2
         .execute(&self.pool)
         .await
         .map_err(|e| {
-            if is_unique_constraing_violation(&e) {
+            if is_unique_constraint_violation(&e) {
                 UpdateAccountError::Duplicate {
                     name: new_name.to_string(),
                 }
@@ -568,7 +568,7 @@ const UNIQUE_CONSTRAINT_VIOLATION_CODE: &str = "23505";
 /// Check if an error happened due to a unique constraint violation.
 ///
 /// This means that the record had a duplicate.
-fn is_unique_constraing_violation(err: &sqlx::Error) -> bool {
+fn is_unique_constraint_violation(err: &sqlx::Error) -> bool {
     if let sqlx::Error::Database(db_err) = err {
         if let Some(code) = db_err.code() {
             return code == UNIQUE_CONSTRAINT_VIOLATION_CODE;
