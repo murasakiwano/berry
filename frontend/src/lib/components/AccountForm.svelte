@@ -2,7 +2,7 @@
 	import { superForm, type SuperValidated } from "sveltekit-superforms";
 	import { z } from "zod";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { toast, Toaster } from "svelte-sonner";
+	import { toast } from "svelte-sonner";
 
 	const accountSchema = z.object({ name: z.string().min(1, "Account name is required") });
 
@@ -25,7 +25,7 @@
 	});
 </script>
 
-<form method="POST" use:enhance class="my-4">
+<form method="POST" action="?/create" use:enhance class="my-4">
 	<fieldset
 		class="fieldset bg-base-200 border-base-300 rounded-box mx-auto w-xs gap-y-4 px-8 py-4"
 	>

@@ -1,5 +1,5 @@
 import { PUBLIC_API_BASE_URL } from "$env/static/public";
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import { AccountSchema } from "$lib/models";
 import { fail, message, superValidate } from "sveltekit-superforms";
@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 };
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	create: async ({ request, fetch }) => {
 		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
@@ -57,5 +57,26 @@ export const actions = {
 			console.error("Account creation failed:", err);
 			return message(form, "Failed to create account", { status: 500 });
 		}
+	},
+
+	delete: async ({ request, fetch }) => {
+		const formData = await request.formData();
+		const accountId = formData.get("accountId") as string;
+
+		if (!accountId) {
+			error(400, "Account ID is required");
+		}
+
+		const response = await fetch(`${PUBLIC_API_BASE_URL}/accounts/${accountId}`, {
+			method: "delete",
+		});
+
+		if (!response.ok) {
+			const errorText = await response.text();
+			error(400, `Failed to delete account: ${errorText}`);
+		}
+
+		// Redirect to refresh the page and show updated data
+		redirect(303, "/accounts");
 	},
 } satisfies Actions;
