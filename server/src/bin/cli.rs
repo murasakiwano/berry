@@ -13,7 +13,7 @@ async fn main() -> color_eyre::Result<()> {
         telemetry::get_subscriber("cli".to_string(), "debug".to_string(), std::io::stdout);
     telemetry::init_subscriber(subscriber);
 
-    let config = get_configuration(Some(PathBuf::from("../../")))?;
+    let config = get_configuration(Some(PathBuf::from(".")))?;
     let service = BerryService::new(&config.database)
         .await
         .map_err(|e| eyre!("failed to create berry service: {:?}", e))?;
