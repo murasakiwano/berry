@@ -9,6 +9,7 @@ anyhow = "1"
 axum = "0.8"
 chrono = { version = "0.4", features = ["serde"] }
 config = "0.15"
+csv = "1"
 derive_more = { version = "2", features = ["full"] }
 dotenvy = "0.15"
 http = { version = "1" }
